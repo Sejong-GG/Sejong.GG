@@ -10,15 +10,15 @@ router.get('/', (req,res,next)=>
 })
 
 router.get('/main', async (req, res, next) => {
-    console.log(sessionStorage.getItem('userName'));
-    if(!sessionStorage.getItem('userName'))
-    {
-        res.render('main');
-    }
-    else
-    {
-        res.redirect('/lobby');
-    }
+    
+    // if(!sessionStorage.getItem('userName'))
+    // {
+    //     res.render('main');
+    // }
+    // else
+    // {
+    //     res.redirect('/lobby');
+    // }
 });
 
 router.get('/lobby', async(req, res, next) => {
