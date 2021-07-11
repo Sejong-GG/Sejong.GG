@@ -2,11 +2,8 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="div-frame">
+<wired-card class="entire" elevation="5" >
 <h2>게임방 생성</h2>
-
-<br>
-<wired-card>
     <form action="/room" method="post">
       <div>
         <wired-input type="text" name="title" placeholder="방 제목">
@@ -19,5 +16,4 @@
       </div>
     </form>
 </wired-card>
-</div>
 {% endblock %}
