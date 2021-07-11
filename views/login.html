@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block content %}
+<div class="frame"> 
+    <wired-card class="entire" elevation="5" >
+        <h3>닉네임을 정해주세요!!!</h3>
+        
+        <div>
+            <wired-card class="nickname" elevation="100">
+               <span>당신의 이름은?</span> 
+            </wired-card>
+            
+            <wired-button elevation="3">선택</wired-button>
+        </div>
+        <p class="hidden">수정은 안됩니다 ㅋ</p>
+    </wired-card>
+</div>
+{% endblock %}
+{% block script %}
+<script>
+    const button = document.querySelector("wired-button");
+    button.addEventListener("click", () => {
+    if(button.innerText==="선택") {
+        button.innerText="수정";
+    }else if(button.innerText==="수정"){
+        button.innerText="입장";
+    }
+    });
+    </script>
+{% endblock %}
