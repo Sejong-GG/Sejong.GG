@@ -3,7 +3,8 @@ const cheerio = require("cheerio");
 
 const champions = ["amumu", "janna", "katarina", "garen", "lux", "gnar", "zed", "annie", "monkeyking", "akali", "camille", "drmundo", "kennen"];
 let baseUrl = "https://www.op.gg/champion/";
-let backUrl = "/statistics/top/comment";;
+let backUrl = "/statistics/top/comment";
+let data = [];
 
 function crawlData(champion) {
     const getHtml = async () => {
@@ -15,16 +16,14 @@ function crawlData(champion) {
     }
     
     getHtml().then(html => {
-        let data = [];
         const $ = cheerio.load(html.data);
         const $comments = $("div.tabItem.ChampionCommentTab-Popular ul div.comment-box__content");
-    
-        $comments.each(function(i, elem) {
-            data[i] = {
-                champion: champion,
+
+        $comments.each(async function(i, elem) {
+            data.push({
+                name: champion,
                 content: $(this).find("p.comment-box__txt").text(),
-            }
-            console.log(data[i]);
+            })
         })
     })
 }
@@ -32,3 +31,5 @@ function crawlData(champion) {
 champions.forEach((element) => {
     crawlData(element);
 })
+
+module.exports = data;
