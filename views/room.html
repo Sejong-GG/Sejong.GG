@@ -1,0 +1,23 @@
+
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="div-frame">
+<h2>게임방 생성</h2>
+
+<br>
+<wired-card>
+    <form action="/room" method="post">
+      <div>
+        <wired-input type="text" name="title" placeholder="방 제목">
+      </div>
+      <div>
+        <wired-input type="password" name="password" placeholder="비밀번호(없으면 공개방)">
+      </div>
+      <div>
+        <wired-button type="submit">생성</button>
+      </div>
+    </form>
+</wired-card>
+</div>
+{% endblock %}
