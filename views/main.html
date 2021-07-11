@@ -1,7 +1,6 @@
 {% extends 'layout.html' %}
 {% block content %}
-<script src="/socket.io/socket.io.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.js"></script>
+
 
 <h1>메인</h1>
     <wired-card class="entire" elevation="5" >
@@ -66,7 +65,7 @@
 {% block script %}
 <script>
     const socket = io.connect
-    ('http://localhost:3000', { 
+    ('http://localhost:3000/main', { 
         // main네임스페이스 connection 이벤트 발생시키기
     path: '/socket.io',
     });

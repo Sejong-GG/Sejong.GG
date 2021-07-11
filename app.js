@@ -6,6 +6,7 @@ const session = require('express-session');
 const nunjucks = require('nunjucks');
 const ColorHash = require('color-hash');
 const dotenv = require('dotenv');
+const SocketIO = require('socket.io');
 
 dotenv.config();
 const webSocket = require('./socket');
@@ -36,7 +37,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(sessionMiddleware);
-
 
 app.use((req, res, next) => {
 
