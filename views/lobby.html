@@ -1,14 +1,11 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<div class="div-frame">
-<section>
+<wired-card class="entire" elevation="5" >
 	<h2>게임방 목록</h2>
-	* 최대 4명 입장 가능합니다~
-</section>
-<wired-card>
+	* 최대 4명 입장 가능합니다~<br>
   <wired-link href="/single">싱글 모드 하기</wired-link> <!--TODO : 링크-->
-  <wired-link href="/room">게임방 생성</wired-link> <!--TODO : 링크-->
+  <wired-link href="/room">게임방 생성</wired-link><br> <!--TODO : 링크-->
   <table>
     <thead>
     <tr>
@@ -39,7 +36,6 @@
   <div class="error-message">{{error}}</div>
   
 </wired-card>
-</div>
 <script src="/socket.io/socket.io.js"></script>
 <script>
 	const socket = io.connect('http://localhost:3000/room', { // 네임스페이스
@@ -85,9 +81,10 @@
 	function addBtnEvent(e) { // 방 입장 클릭 시
 		window.alert(`방 입장합니다`);
   	}
+
 	document.querySelectorAll('.join-btn').forEach(function (btn) {
-    btn.addEventListener('click', addBtnEvent);
-  });
+    	btn.addEventListener('click', addBtnEvent);
+  	});
 </script>
 {% endblock %}
 {% block script %}

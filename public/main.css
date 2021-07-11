@@ -2,23 +2,9 @@
 @import url(https://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
 
 body {
-    margin:0;
-    font-family: "Gloria Hallelujah", cursive;
-    font-size: 25px;
-    line-height: 1.8;
-}
-
-body {
   font-size: 30px;
   font-family: "Nanum Brush Script", serif;
   line-height: 3;
-  color: #888;
-}
-
-div .frame {
-  height: 900px;
-  padding: 16px;
-  text-align: center;
 }
 
 wired-card {
@@ -29,7 +15,16 @@ wired-card {
   display: block;
 }
 
-wired-button {
+wired-card .nickname {
+    width: 300px;
+    height: 80px;
+    font-family: inherit;
+    margin-bottom: 40px;
+    text-align: center;
+    font-size: 30px;
+}
+
+#choice {
   margin: 8px;
   font-size: 20px;
   
@@ -39,17 +34,12 @@ wired-button {
   transform: translate(-50%, -50%);
 }
 
-wired-card.nickname {
-  width: 300px;
-  height: 80px;
-  font-family: inherit;
-  margin-bottom: 40px;
-  text-align: center;
-  font-size: 30px;
-}
-
 h3 {
   font-size: 50px;
+  text-align: center;
+}
+
+h2 {
   text-align: center;
 }
 
@@ -67,22 +57,10 @@ p {
 	font-size: 30px;
 	line-height: 1.8;
  }
-body {
-	margin: 0 auto;
-	width: 540px;
-	border: 1px solid black;
-	
-}
-.div-frame {
-	width: 540;
-	height: 640px;
-	text-align: center;
-	margin: 0 auto;
-}
+
 table, table th, table td {
 	text-align: center;
 	border: 1px solid silver;
 	border-collapse: collapse;
+    margin : auto;
 }
-
-
