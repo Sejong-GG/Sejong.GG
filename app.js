@@ -43,8 +43,8 @@ app.use((req, res, next) => {
   //세션의 이름값이 비어있을때
   if(!req.session.name)
   {
-    req.session.name=`test`+(Math.random()*10);
-    console.log('새로운 유저의 이름 : '+req.session.name);
+    // req.session.name=`test`+(Math.random()*10);
+    // console.log('새로운 유저의 이름 : '+req.session.name);
   }
   else //세션에 이미 이름이 있을때
   {

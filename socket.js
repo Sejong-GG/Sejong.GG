@@ -1,5 +1,6 @@
 const SocketIO = require('socket.io');
 const axios = require('axios');
+const cookieParser = require('cookie-parser');
 
 module.exports = (server, app, sessionMiddleware) => {
   const io = SocketIO(server, { path: '/socket.io' });
@@ -16,22 +17,37 @@ module.exports = (server, app, sessionMiddleware) => {
 
   io.on('connection', (socket)=>
   {
+    const req=socket.request;
     console.log(req.session.name+'님이 네임스페이스 접속');
-  })
-
-  main.on('connection', (socket) =>
-  {
-    console.log(req.session.name+'님이 main 네임스페이스 접속');
     socket.on('disconnect', () => {
-      console.log('main 네임스페이스 접속 해제');
+      console.log('네임스페이스 접속 해제');
     });
   });
 
-  lobby.on('connection', (socket) =>
-  {
-    console.log(req.session.name+'님이 lobby 네임스페이스 접속');
-    socket.on('disconnect', () => {
-      console.log('lobby 네임스페이스 접속 해제');
+  main.on('connection', (socket) =>
+    {
+      const req=socket.request;
+      console.log(req.session.name+'님이 main 네임스페이스 접속');
+
+      socket.on('setname',(name)=>
+      {
+        req.session.name=name;
+        console.log(req.session.name+'님이 닉네임을 설정함');
+      });
+
+      socket.on('disconnect', () => {
+        console.log('main 네임스페이스 접속 해제');
+      });
     });
-  })
+
+    lobby.on('connection', (socket) =>
+    {
+      const req=socket.request;
+      console.log(req.session.name+'님이 lobby 네임스페이스 접속');
+      socket.on('disconnect', () => {
+        console.log('lobby 네임스페이스 접속 해제');
+      });
+    })
+
+  
 }
