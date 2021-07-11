@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 {% block content %}
 <h1>로비</h1>
+<p id='usernameLabel'></p>
 {% endblock %}
 {% block script %}
 <script>
@@ -9,5 +10,7 @@
         // lobby네임스페이스 connection 이벤트 발생시키기
     path: '/socket.io',
     });
+    var namelabel=document.getElementById('usernameLabel');
+    namelabel.innerText=sessionStorage.getItem('userName');
 </script>
 {% endblock %}

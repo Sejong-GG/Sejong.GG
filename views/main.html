@@ -74,6 +74,7 @@
             const nameObject=document.getElementById('settedname');
             const username=nameObject.innerHTML;
             console.log(nameObject);
+            sessionStorage.setItem('userName', username)
             socket.emit('setname', username);
             window.location.href = 'http://localhost:3000/lobby';
         }
