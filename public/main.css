@@ -5,13 +5,13 @@
 }
 body {
 	margin: 0 auto;
-	width: 800px;
+	width: 540px;
 	border: 1px solid black;
 	
 }
 .div-frame {
-	width: 600px;
-	height: 400px;
+	width: 540;
+	height: 640px;
 	text-align: center;
 	margin: 0 auto;
 }
