@@ -37,9 +37,26 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(sessionMiddleware);
 
+
+app.use((req, res, next) => {
+
+  //세션의 이름값이 비어있을때
+  if(!req.session.name)
+  {
+    req.session.name=`test`+(Math.random()*10);
+    console.log('새로운 유저의 이름 : '+req.session.name);
+  }
+  else //세션에 이미 이름이 있을때
+  {
+    console.log('기존 유저의 이름 : '+req.session.name);
+  }
+  next();
+});
+
 app.use('/', indexRouter);
 
 app.use((req, res, next) => {
+
   const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
   error.status = 404;
   next(error);
@@ -51,6 +68,8 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.render('error');
 });
+
+
 
 const server = app.listen(app.get('port'), () => {
   console.log(app.get('port'), '번 포트에서 대기중');

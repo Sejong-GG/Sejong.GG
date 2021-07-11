@@ -1,14 +1,13 @@
 {% extends 'layout.html' %}
 {% block content %}
-<h1>메인</h1>
+<h1>로비</h1>
 {% endblock %}
 <script>
     const socket = io.connect
-    ('http://localhost:3000', { 
-        // main네임스페이스 connection 이벤트 발생시키기
+    ('http://localhost:3000/lobby', { 
+        // lobby네임스페이스 connection 이벤트 발생시키기
     path: '/socket.io',
-    });
-    socket.emit('setname', 'test1');
+  });
 </script>
 {% block script %}
 {% endblock %}
