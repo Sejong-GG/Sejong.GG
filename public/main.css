@@ -1,3 +1,4 @@
+
 @import url(https://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
 
 body {
@@ -61,15 +62,27 @@ p {
     height: 40px;
 }
 
-
-
-
-
-
-
-
-
-
-
+* {
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 30px;
+	line-height: 1.8;
+ }
+body {
+	margin: 0 auto;
+	width: 540px;
+	border: 1px solid black;
+	
+}
+.div-frame {
+	width: 540;
+	height: 640px;
+	text-align: center;
+	margin: 0 auto;
+}
+table, table th, table td {
+	text-align: center;
+	border: 1px solid silver;
+	border-collapse: collapse;
+}
 
 
