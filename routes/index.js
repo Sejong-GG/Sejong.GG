@@ -10,7 +10,7 @@ router.get('/', (req,res,next)=>
 })
 
 router.get('/main', async (req, res, next) => {
-    
+    console.log(sessionStorage.getItem('userName'));
     if(!sessionStorage.getItem('userName'))
     {
         res.render('main');
@@ -25,9 +25,5 @@ router.get('/lobby', async(req, res, next) => {
     res.render('lobby', { title: '로비' });
   });
 
-router.get('/crawl', async (req, res, next) => {
-    const champ = await Champion.create(crawlData);
-    res.redirect('/');
-});
 
 module.exports = router;
