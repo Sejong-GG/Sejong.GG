@@ -4,16 +4,15 @@
         <title>{{title}}</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="/main.css">
-        <script type="module" src="https://unpkg.com/wired-elements?module"></script>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
+		    <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Nanum+Pen+Script&display=swap" rel="stylesheet">
+		    <script type="module" src="https://unpkg.com/wired-elements?module"></script>
     </head>
     <body>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="//code.jquery.com/jquery-1.11.1.js"></script>
-        {% block content %}
+		{% block content %}
         {% endblock %}
         {% block script %}
         {% endblock %}
     </body>
 </html>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
