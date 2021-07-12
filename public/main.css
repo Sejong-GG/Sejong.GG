@@ -1,9 +1,9 @@
 @import url(https://fonts.googleapis.com/earlyaccess/nanumbrushscript.css);
 
-body {
-  font-size: 30px;
-  font-family: "Nanum Brush Script", serif;
-  line-height: 3;
+* {
+	font-family: 'Nanum Pen Script', cursive;
+	font-size: 30px;
+	line-height: 1.8;
 }
 
 wired-card {
@@ -24,12 +24,6 @@ wired-card.nickname {
     font-size: 30px;
 }
 
-wired-input.room {
-	width: 70%;
-	font-family: inherit;
-	text-align: center;
-}
-
 wired-button#choice {
   margin: 8px;
   font-size: 20px;
@@ -41,26 +35,12 @@ wired-button#choice {
 }
 
 h3 {
-  font-size: 50px;
-  text-align: center;
-}
-
-h2 {
-  text-align: center;
+	font-size: 50px;
+	text-align: center;
 }
 
 .hidden {
   display: none;
-}
-
-* {
-	font-family: 'Nanum Pen Script', cursive;
-	font-size: 30px;
-	line-height: 1.8;
- } */
-div#vertical-center {
-	text-align: center;
-	margin: auto;	
 }
 
 table, table th, table td {
@@ -69,8 +49,20 @@ table, table th, table td {
 	border-collapse: collapse;
     margin : auto;
 }
+/************************* room 화면 css *************************/
+wired-input.room {
+	width: 70%;
+	text-align: center;
+}
 
-/***************************** 싱글 화면 css *********************/
+.vertical-align {
+	display: inline-block;
+	text-align: center;
+	margin: 30px auto;
+	height: 100%;
+	width: 80%;
+}
+/************************* 싱글 화면 css *************************/
 .entire_single {
   width: 800px;
   height: 750px;

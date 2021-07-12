@@ -4,19 +4,17 @@
 {% block content %}
 <wired-card class="entire" elevation="5" >
 <h3>게임방 생성</h3>
-<div id="vertical-center">
     <form action="/room" method="post">
       <div>
-        <wired-input elevation="100" class="room" type="text" name="title" placeholder="방 제목">
+        <wired-input elevation="100" class="vertical-align" class="room" type="text" name="title" placeholder="&nbsp&nbsp방 제목">
       </div>
       <div>
-        <wired-input elevation="100" class="room"type="password" name="password" placeholder="비밀번호(없으면 공개방)">
+        <wired-input elevation="100" class="vertical-align" class="room"type="password" name="password" placeholder="&nbsp&nbsp비밀번호(없으면 공개방)">
       </div>
       <div>
-        <wired-button id="choice" type="submit" elevation="3">생성</button>
+        <wired-button type="submit" elevation="3" class="vertical-align">생성</wired-button>
       </div>
     </form>
-</div>
 </wired-card>
 {% endblock %}
 {% block script %}
