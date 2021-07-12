@@ -25,7 +25,11 @@ router.get('/room', async (req, res, next) => {
 router.get('/lobby', async (req,res,next) => {
     const userName = req.session.userName;
 	res.render('lobby')
-})
+});
+
+router.get('/single', async (req,res,next) => {
+	res.render('single')
+});
 
 router.get('/crawl', async (req, res, next) => {
     await Champion.create(crawlData);
