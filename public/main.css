@@ -13,6 +13,7 @@ wired-card {
   margin: 140px auto;
   padding: 20px;
   display: block;
+  text-align: center;
 }
 
 wired-card .nickname {
@@ -22,6 +23,12 @@ wired-card .nickname {
     margin-bottom: 40px;
     text-align: center;
     font-size: 30px;
+}
+
+wired-input.room {
+	width: 70%;
+	font-family: inherit;
+	text-align: center;
 }
 
 #choice {
