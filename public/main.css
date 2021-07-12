@@ -16,7 +16,7 @@ wired-card {
   text-align: center;
 }
 
-wired-card .nickname {
+wired-card.nickname {
     width: 300px;
     height: 80px;
     font-family: inherit;
@@ -31,7 +31,7 @@ wired-input.room {
 	text-align: center;
 }
 
-#choice {
+wired-button#choice {
   margin: 8px;
   font-size: 20px;
   
