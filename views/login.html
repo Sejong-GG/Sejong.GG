@@ -20,6 +20,7 @@
     const name = document.querySelector("wired-input");
     const change = document.querySelector("p");
     const yourName = document.querySelector("span");
+    let user;
 
     const place = ['거창', '고령', '대구', '함양', '평양', '울산', '부산', '통영', '거제', '북한', '영국', '독일', '체코', '스웨덴', '포르투갈', '파키스탄', '미얀마', '요르단', '세네갈', '칠레', '브라질', '콜롬비아', '쿠바', '멕시코'];
 
@@ -29,13 +30,16 @@
 
     button.addEventListener("click", () => {
     if(button.innerText==="선택") {
-        const user = makeRandomName(place,adj,who);
+        user = makeRandomName(place,adj,who);
         yourName.innerText = user;
         button.innerText="수정";
-    }else if(button.innerText==="수정"){
+    } else if(button.innerText==="수정"){
         button.innerText="입장";
         change.classList.remove("hidden");
+    } else if(button.innerText==="입장"){
+        window.location.href = 'http://localhost:3000/login/' + user;
     }
+    
     function makeRandomName (place, adj, who) { 
         const chosedLoaction = place[Math.floor(Math.random() * place.length)];
         const chosedAdjective = adj[Math.floor(Math.random() * adj.length)];
