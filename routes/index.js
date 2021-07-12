@@ -13,7 +13,11 @@ router.get('/room', async (req, res, next) => {
 
 router.get('/lobby', async (req,res,next) => {
 	res.render('lobby')
-})
+});
+
+router.get('/single', async (req,res,next) => {
+	res.render('single')
+});
 
 router.get('/crawl', async (req, res, next) => {
     const champ = await Champion.create(crawlData);
