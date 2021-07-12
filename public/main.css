@@ -58,12 +58,16 @@ p {
     text-align: center;
     height: 40px;
 }
-
+/* 
 * {
 	font-family: 'Nanum Pen Script', cursive;
 	font-size: 30px;
 	line-height: 1.8;
- }
+ } */
+div#vertical-center {
+	text-align: center;
+	margin: auto;	
+}
 
 table, table th, table td {
 	text-align: center;
