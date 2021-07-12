@@ -20,4 +20,8 @@ router.get('/crawl', async (req, res, next) => {
     res.redirect('/');
 });
 
+router.get('/single', async (req,res,next) => {
+	res.render('single')
+})
+
 module.exports = router;
