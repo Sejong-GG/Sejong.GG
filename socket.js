@@ -5,6 +5,7 @@ module.exports = (server, app, sessionMiddleware) => {
   app.set('io', io);
   const room = io.of('/room');
   const chat = io.of('/chat');
+  const single = io.of('/single'); // single 네임스페이스
 
   io.use((socket, next) => {
     //cookieParser(process.env.COOKIE_SECRET)(socket.request, socket.request.res, next);
