@@ -30,12 +30,9 @@ module.exports = (server, app, sessionMiddleware) => {
       });
     })
     
-
     socket.on('disconnect',()=>{
       socket.leave(singleRoomId);
     });
-    
-
   })
 
 }
