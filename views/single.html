@@ -3,8 +3,8 @@
 <wired-card class="entire_single" elevation="5" >
     <h3 class="alone">싱글 게임</h3>
     <div class="hint">
-        <wired-card class="first_line container" elevation="5">얘 의외로 사람들이 모르는 궁극기효과:사용하자마자 시전대상침묵걸리면서 정신집중끊음. 사미라가 상대 원딜이면 궁을 아끼다가 궁쓰는 사미라한테 써줍시다.
-        </wired-card>
+        <wired-card class="first_line container" elevation="5"><span>얘 의외로 사람들이 모르는 궁극기효과:사용하자마자 시전대상침묵걸리면서 정신집중끊음. 사미라가 상대 원딜이면 궁을 아끼다가 궁쓰는 사미라한테 써줍시다.
+        </span></wired-card>
         <wired-card class="first_line container" elevation="5"><span>18렙 고정딜 맞아보면 진짜 갈비뼈 부숴지는 느낌임
         </span></wired-card>
     </div>
@@ -24,4 +24,17 @@
 </wired-card>
 {% endblock %}
 {% block script %}
+<script>
+	const socket = io.connect('http://localhost:3000/single', {
+		path: '/socket.io',
+	});
+	socket.emit('make')
+	socket.on('get', function(data) { // 문제 가져옴
+		console.log(data);
+
+		const hintBoxes = document.querySelectorAll('.hint wired-card').forEach(function(area) {
+			area.innerHTML(data[0])
+		});
+  	});
+</script>
 {% endblock %}
