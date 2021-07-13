@@ -1,0 +1,29 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<wired-card class="entire" elevation="5" >
+	<h3>랭크 Top 10</h3>
+	<!-- 테이블 -->
+	<table>
+		<thead>
+		<tr>
+			<th>순위</ht>
+			<th>유저 이름</th>
+			<th>점수</th>
+		</tr>
+		</thead>
+		<tbody>
+			{% for rank in rankData %}
+			<tr>
+				<td></td>
+				<td>{{rank.userName}}</td>
+				<td>{{rank.score}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</wired-card>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
