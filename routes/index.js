@@ -28,16 +28,12 @@ router.get('/lobby', async (req,res,next) => {
 });
 
 router.get('/single', async (req,res,next) => {
-	res.render('single')
+	res.render('single');
 });
 
 router.get('/crawl', async (req, res, next) => {
     await Champion.create(crawlData);
     res.redirect('/');
 });
-
-router.get('/single', async (req,res,next) => {
-	res.render('single')
-})
 
 module.exports = router;

@@ -1,4 +1,8 @@
 const SocketIO = require('socket.io');
+const connect=require('./schemas/index');
+const Chams=require('./schemas/champion');
+//Chams는 이제 모델을 담고있다.
+//mongoose.model('Champion', championSchema);
 
 module.exports = (server, app, sessionMiddleware) => {
   const io = SocketIO(server, { path: '/socket.io' });
@@ -22,6 +26,34 @@ module.exports = (server, app, sessionMiddleware) => {
     console.log(singleRoomId);
     socket.join(singleRoomId);
 
+    const champions = ["amumu", "janna", "katarina", "garen", "lux", "gnar", "zed", "annie", "monkeyking", "akali", "camille", "drmundo", "kennen"];
+    //받아올 챔 이름들
+
+    function sendQuizSet()
+    {
+      var quizSet=[];//넘길 퀴즈셋 초기화
+      var randomtestIndex=0;
+
+      Chams.find({name:champions[randomtestIndex]}, function(err,docs)
+      {
+        var randomIndex=[0,1,2,3];
+        for(var i=0;i<4;i++)
+        {
+          quizSet[i]=docs[randomIndex[i]]
+        }
+        console.log(quizSet);
+        return quizSet;
+      });
+    }
+
+    socket.on('make', ()=>//make 요청이 오면,
+    {
+      var quizSet=[];
+      quizSet=sendQuizSet();
+      socket.to(singleRoomId).emit('get', quizSet);
+      //해당 유저의 singleRoom에 get 으로 퀴즈셋 전송
+    });
+    
     socket.on('disconnect',()=>{
       socket.leave(singleRoomId);
     });
