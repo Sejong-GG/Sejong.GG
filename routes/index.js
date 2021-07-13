@@ -40,4 +40,8 @@ router.get('/single', async (req,res,next) => {
 	res.render('single')
 })
 
+router.get('/loading', async (req,res,next) => {
+	res.render('loading')
+})
+
 module.exports = router;
