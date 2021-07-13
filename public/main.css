@@ -77,13 +77,12 @@ wired-input.room {
 }
 
 .hint {
-  height: 200px;
+  height: 250px;
   margin: 0;
 }
 
 .who {
   height: 200px;
-  margin-top: 70px;
   padding: 0;
 }
 
@@ -102,21 +101,26 @@ wired-input.room {
   margin-right: 100px;
 }
 
+textarea {
+  margin-top: 100px;
+}
+
 /* 스크롤바 부분 */
 .container {
   overflow: auto;
+  height: 200px;
 }
 .container::-webkit-scrollbar {
-  width: 10px;
+  width: 7px;
 }
 .container::-webkit-scrollbar-thumb {
-  background-color: #2f3542;
+  background-color: white;
   border-radius: 10px;
   background-clip: padding-box;
   border: 2px solid transparent;
 }
 .container::-webkit-scrollbar-track {
-  background-color: grey;
+  background-color: gray;
   border-radius: 10px;
   box-shadow: inset 0px 0px 5px white;
 }
