@@ -28,13 +28,32 @@
 	const socket = io.connect('http://localhost:3000/single', {
 		path: '/socket.io',
 	});
-	socket.emit('make')
-	socket.on('get', function(data) { // 문제 가져옴
-		console.log(data);
+	socket.emit('make');
 
-		const hintBoxes = document.querySelectorAll('.hint wired-card').forEach(function(area) {
-			area.innerHTML(data[0])
-		});
+	btn = document.querySelector('wired-button');
+	insertedAnswer = document.querySelector('wired-input').value;
+
+	// function addConfirmEvent(e) {
+	//  e.preventDefault();
+	// 	socket.emit('correct', insertedAnswer);
+	// 	socket.on('correct', function(data) {
+	// 		if(data === 'corrected'){
+	// 			socket.emit('make');
+	// 		}
+	// 		else {
+	// 			socket.emit('exit');
+	// 		}
+	// 	})
+	// btn.addEventListener('click', addConfirmEvent);	
+		
+	socket.on('get', function(data) { // 문제 가져옴
+		console.log('get Data:' );
+
+		// const quizSet = document.querySelectorAll('.hint wired-card')
+		// console.log('quizSet client: ' + quizSet);
+		// quizSet.forEach(function(area) {
+		// 	area.innerHTML(data[0])
+		// });
   	});
 </script>
 {% endblock %}
