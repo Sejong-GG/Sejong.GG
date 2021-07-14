@@ -58,7 +58,7 @@ wired-input.room {
 .vertical-align {
 	display: inline-block;
 	text-align: center;
-	margin: 30px auto;
+	margin: 0 auto;
 	height: 100%;
 	width: 80%;
 }
@@ -80,8 +80,8 @@ wired-input.room {
 /************************* 싱글 화면 css *************************/
 .entire_single {
   width: 800px;
-  height: 750px;
-  margin: 70px auto;
+  height: 860px;
+  margin: 40px auto;
   padding: 20px;
   display: block;
 }
@@ -142,24 +142,40 @@ textarea {
   border-radius: 10px;
   box-shadow: inset 0px 0px 5px white;
 }
+
+.exit {
+  margin-top: 70px;
+}
+
+
 /*****************************************************************/
 
 /**************************** 로딩 화면 **************************/
 
 wired-card.loading {
   width: 540px;
-  height: 500px;
-  margin: 140px auto;
+  height: 800px;
+  margin: 0 auto;
   padding: 20px;
   display: block;
   text-align: center;
 }
 
-wired-card.waiting {
+wired-card.waiting_loading {
   width: 500px;
   height: 200px;
   margin-top: 0;
-  margin-bottom: 50px;
+  margin-bottom: 10px;
+  padding: 20px;
+  display: block;
+  text-align: center;
+}
+
+wired-card.waiting_menu {
+  width: 500px;
+  height: 510px;
+  margin-top: 0;
+  margin-bottom: 10px;
   padding: 20px;
   display: block;
   text-align: center;
@@ -173,6 +189,11 @@ wired-fab {
 .boring {
   display: inline;
   margin-top: 140px;
+}
+
+ul {
+  list-style-type: "\2023 \0020";
+  text-align: left;
 }
 
 /*****************************************************************/

@@ -17,6 +17,19 @@
         <wired-button elevation="3">확인</wired-button>
         <wired-input type="text" name="title" placeholder="챔피언 입력"> 
     </div>
+
+    <div class="exit">
+        <wired-dialog-demo>
+            <wired-button elevation="3" id="lobby">로비로 돌아가기</wired-button>
+            <wired-dialog class="hidden" open>
+                <p>
+                    정말 나가실건가요?
+                </p>
+                <wired-button id="go_out" onclick="location.href='http://localhost:3000/lobby'">나가기</wired-button>
+                <wired-button id="leave">계속 하기</wired-button>
+            </wired-dialog>
+        </wired-dialog-demo>
+    </div>
 </wired-card>
 {% endblock %}
 {% block script %}
@@ -51,7 +64,5 @@
 	}
 	const btn = document.querySelector('wired-button');
 	btn.addEventListener('click', addConfirmEvent);	
-	
-	
 </script>
 {% endblock %}
