@@ -3,6 +3,7 @@ const connect=require('./schemas/index');
 const Chams=require('./schemas/champion');
 //Chams는 이제 모델을 담고있다.
 //mongoose.model('Champion', championSchema);
+const Rank = require('./schemas/rank');
 
 module.exports = (server, app, sessionMiddleware) => {
   const io = SocketIO(server, { path: '/socket.io' });
@@ -46,9 +47,9 @@ module.exports = (server, app, sessionMiddleware) => {
       });
     }
 
-    var quizSet=[];
-    quizSet=sendQuizSet();
-    socket.emit('get', quizSet);
+    // var quizSet=[];
+    // quizSet=sendQuizSet();
+    // socket.emit('get', quizSet);
 
     socket.on('make', ()=>//make 요청이 오면,
     {
@@ -62,21 +63,23 @@ module.exports = (server, app, sessionMiddleware) => {
         {
           quizSet1[i]=docs[randomIndex[i]]
         }
+        console.log(quizSet1);
         socket.in(singleRoomId).emit('get', quizSet1);//get으로 퀴즈셋 전송
       });
     });
 
-    socket.on('correct', (answer,score,time)=>
+    socket.on('finish', (score,time)=>
     {
       //answer은 보낸 문제셋의 이름값과 사용자가 보낸 정답지 배열
       //score은 현재 사용자의 점수
-      if(answer[0]==answer[1])
-      {
-        score+=1;
-        var quizSet=[];
-        quizSet=sendQuizSet();
-        single.in(singleRoomId).emit('get', {quizSet, score})
-      }
+      
+      Rank.create({user:req.session.userName,
+         score:score, time:time, createAt:new Date()},
+         function(err) {
+           if(err)
+            throw err;
+         })
+         console.log('저장성공');
     });
     
     socket.on('disconnect',()=>{
