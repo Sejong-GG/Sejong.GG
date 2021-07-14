@@ -42,7 +42,7 @@ module.exports = (server, app, sessionMiddleware) => {
           quizSet1[i]=docs[randomIndex[i]]
         }
         //console.log(quizSet);
-        return quizSet1[0];
+        return quizSet1;
       });
     }
 
@@ -52,7 +52,6 @@ module.exports = (server, app, sessionMiddleware) => {
 
     socket.on('make', ()=>//make 요청이 오면,
     {
-      var quizSet=[];
       var quizSet1=[];//넘길 퀴즈셋 초기화
       var randomtestIndex=0;
 
@@ -63,15 +62,9 @@ module.exports = (server, app, sessionMiddleware) => {
         {
           quizSet1[i]=docs[randomIndex[i]]
         }
-        socket.emit('get', quizSet1);
+        socket.emit('get', quizSet1);//get으로 퀴즈셋 전송
       });
-      // quizSet=sendQuizSet();
-      // console.log(quizSet);
-      
-      //해당 유저의 singleRoom에 get 으로 퀴즈셋 전송
     });
-
-    //
 
     socket.on('correct', (answer,score,time)=>
     {
@@ -82,7 +75,7 @@ module.exports = (server, app, sessionMiddleware) => {
         score+=1;
         var quizSet=[];
         quizSet=sendQuizSet();
-        socket.to(singleRoomId).emit('get', {quizSet, score})
+        single.in(singleRoomId).emit('get', {quizSet, score})
       }
     });
     
