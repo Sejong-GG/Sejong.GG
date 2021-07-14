@@ -3,10 +3,10 @@
 {% block content %}
 <h1>{{ userName }}</h1>
 <wired-card class="entire" elevation="5" >
-	<h2>게임방 목록</h2>
+	<h3>게임방 목록</h3>
 	* 최대 4명 입장 가능합니다~<br>
-  <wired-link href="/single">싱글 모드 하기</wired-link> <!--TODO : 링크-->
-  <wired-link href="/room">게임방 생성</wired-link><br> <!--TODO : 링크-->
+  <wired-link href="/single">싱글 모드 하기</wired-link>
+  <wired-link href="/room">게임방 생성</wired-link><br><br>
   <table>
     <thead>
     <tr>
@@ -43,42 +43,8 @@
 		path: '/socket.io',
 	});
 	
-	socket.on('newRoom', function (data) { // 새 방 이벤트 받을 시 새 방 생성
-		const tr = document.createElement('tr');
-		let td = document.createElement('td');
-		td.textContent = data.title;
-		tr.appendChild(td);
-		td = document.createElement('td');
-		td.textContent = data.password ? '비밀방' : '공개방';
-		tr.appendChild(td);
-		td = document.createElement('td');
-		td.textContent = data.max;
-		tr.appendChild(td);
-		td = document.createElement('td');
-		td.style.color = data.owner;
-		td.textContent = data.owner;
-		tr.appendChild(td);
-		td = document.createElement('td');
-		const button = document.createElement('button');
-		button.textContent = '입장';
-		button.dataset.password = data.password ? 'true' : 'false';
-		button.dataset.id = data._id;
-		button.addEventListener('click', addBtnEvent);
-		td.appendChild(button);
-		tr.appendChild(td);
-		tr.dataset.id = data._id;
-		document.querySelector('table tbody').appendChild(tr); // 화면에 추가
-	});
-
-	socket.on('removeRoom', function (data) { // 방 제거 이벤트 시 id가 일치하는 방 제거
-		document.querySelectorAll('tbody tr').forEach(function (tr) {
-		if (tr.dataset.id === data) {
-			tr.parentNode.removeChild(tr);
-		}
-		});
-	});
   	const button = document.querySelectorAll(".join-btn");
-    
+	  
 	function addBtnEvent(e) { // 방 입장 클릭 시
 		window.alert(`방 입장합니다`);
   	}

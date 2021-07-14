@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% block content %}
+<wired-card class="loading" elevation="5" >
+    <wired-card class="waiting" elevation="3" >
+        <p>다른 사람들을 기다립시다...</p>
+        <wired-spinner spinning duration="1000"></wired-spinner>
+    </wired-card>
+    <p class="boring">심심하시면... 미리 공부하세요... ----></p>
+    <wired-fab><mwc-icon>op.gg</mwc-icon></wired-fab>
+    <p class="hidden" id="study">공부는 무슨.. 그냥 기다립시다..</p>
+</wired-card>
+{% endblock %}
+{% block script %}
+<script>
+    const study = document.getElementById("study");
+    const icon = document.querySelector("wired-fab");
+    icon.addEventListener("click", () => {
+        study.classList.remove("hidden");
+    });
+</script>
+{% endblock %}
