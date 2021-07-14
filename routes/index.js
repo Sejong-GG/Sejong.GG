@@ -28,7 +28,7 @@ router.get('/lobby', async (req,res,next) => {
 });
 
 router.get('/single', async (req,res,next) => {
-	res.render('single')
+	res.render('single');
 });
 
 router.get('/crawl', async (req, res, next) => {
@@ -38,6 +38,10 @@ router.get('/crawl', async (req, res, next) => {
 
 router.get('/single', async (req,res,next) => {
 	res.render('single')
+})
+
+router.get('/rank', async (req,res,next) => {
+	res.render('rank')
 })
 
 router.get('/loading', async (req,res,next) => {
