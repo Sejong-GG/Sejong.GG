@@ -54,13 +54,37 @@ wired-input.room {
 	width: 70%;
 	text-align: center;
 }
-
 .vertical-align {
 	display: inline-block;
 	text-align: center;
 	margin: 0 auto;
 	height: 100%;
 	width: 80%;
+}
+/************************* 멀티 채팅 css *************************/
+.chat-head {
+	display: inline-block;
+	width: 90%;
+}
+.chat-header-left{
+	float: left;
+	font-size: 50px;
+}
+.chat-header-right{
+	float: right; 
+	margin: auto 0;
+}
+#chat-list{
+	margin: 0px auto;
+	height: 500px;
+	width: 90%;
+}
+#chat-form{
+	width: 90%;
+	margin: 20px auto;
+}
+#chat{
+	width : 70%;
 }
 /************************* 싱글 랭크 css *************************/
 .horizon-left{

@@ -7,7 +7,7 @@
 	* 최대 4명 입장 가능합니다~<br>
   <wired-link href="/single">싱글 모드 하기</wired-link>
   <wired-link href="/room">게임방 생성</wired-link><br><br>
-  <table>
+  <table class="contatiner"> <!--TODO스크롤 되는지 확인-->
     <thead>
     <tr>
       <th>방 제목</th>
@@ -47,7 +47,7 @@
   	const button = document.querySelectorAll(".join-btn");
 	  
 	function addBtnEvent(e) { // 방 입장 클릭 시
-		window.alert(`방 입장합니다`);
+		location.href="http://localhost:3000/chat" ;
   	}
 
 	document.querySelectorAll('.join-btn').forEach(function (btn) {
