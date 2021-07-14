@@ -46,6 +46,10 @@ module.exports = (server, app, sessionMiddleware) => {
       });
     }
 
+    var quizSet=[];
+    quizSet=sendQuizSet();
+    socket.to(singleRoomId).emit('get', quizSet);
+
     socket.on('make', ()=>//make 요청이 오면,
     {
       var quizSet=[];
