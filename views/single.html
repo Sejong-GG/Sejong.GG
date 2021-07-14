@@ -3,13 +3,13 @@
 <wired-card class="entire_single" elevation="5" >
     <h3 class="alone">싱글 게임</h3>
     <div class="hint">
-        <wired-card class="first_line container" elevation="5"><span></span></wired-card>
-        <wired-card class="first_line container" elevation="5"><span></span></wired-card>
+        <textarea class="first_line container" disabled elevation="5"></textarea>
+        <textarea class="first_line container" disabled elevation="5"></textarea>
     </div>
 
     <div class="hint">
-        <wired-card class="first_line container" elevation="5"><span></span></wired-card>
-        <wired-card class="first_line container" elevation="5"><span></span></wired-card>
+        <textarea class="first_line container" disabled elevation="5"></textarea>
+        <textarea class="first_line container" disabled elevation="5"></textarea>
     </div>
 
     <div class="who">
@@ -41,7 +41,7 @@
 	// 문제 가져옴
 	socket.emit('make');
 	socket.on('get', function(data) { 
-		const hintcard = document.querySelectorAll('.hint wired-card span');
+		const hintcard = document.querySelectorAll('.hint textarea');
 		for(let i=0; i< 4;i++){
 			hintcard[i].innerHTML = data[i].content;
 		}
@@ -64,5 +64,18 @@
 	}
 	const btn = document.querySelector('wired-button');
 	btn.addEventListener('click', addConfirmEvent);	
+
+    const button = document.getElementById("lobby");
+    const dialog = document.querySelector("wired-dialog");
+    const leave = document.getElementById("leave");
+    const go_out = document.getElementById("go_out");
+
+    button.addEventListener("click" , () => {
+        dialog.classList.remove("hidden");
+    });
+
+    leave.addEventListener("click" , () => {
+        dialog.classList.add("hidden");
+    });
 </script>
 {% endblock %}

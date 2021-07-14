@@ -64,7 +64,7 @@ module.exports = (server, app, sessionMiddleware) => {
           quizSet1[i]=docs[randomIndex[i]]
         }
         console.log(quizSet1);
-        socket.in(singleRoomId).emit('get', quizSet1);//get으로 퀴즈셋 전송
+        single.in(singleRoomId).emit('get', quizSet1);//get으로 퀴즈셋 전송
       });
     });
 
