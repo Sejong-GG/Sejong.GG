@@ -3,15 +3,13 @@
 <wired-card class="entire_single" elevation="5" >
     <h3 class="alone">싱글 게임</h3>
     <div class="hint">
-        <textarea class="first_line container" disabled elevation="5">Q도 못 맞춰~ E도 못 맞춰~ 씨발 그럴거면 럭스 왜하냐 혜지년들아?</textarea>
-        </textarea>
-        <textarea class="first_line container" disabled elevation="5">제드 유저 난이도 부심 관련 얘기가 있는데 난 제드 유저들이 이해가 감. 여기 팁창이 솔직히 다른 팁창에 비해 난이도고 성능이고 억까가 심하긴 하잖슴. 내가 보기엔 여기 있는 제드 유저들이 난이도 부심을 갖게된건 이런 억까 때문에 이렇게 된거 같음.제드유저한테 뭐라하기 전에 이런 억까들 부터 고쳐야 한다고 봄 나는. 그럼 제드 유저들도 난이도 부심 덜 부릴 수도 있잖슴. 솔직히 여기 있는 제드 유저들 대부분은 착한거 같은데</textarea>
-        </textarea>
+        <wired-card class="first_line container" elevation="5"><span></span></wired-card>
+        <wired-card class="first_line container" elevation="5"><span></span></wired-card>
     </div>
 
     <div class="hint">
-        <textarea class="first_line container" disabled elevation="5">TMI) 그웬은 출시 2일만에 히토미에 올라왔다</textarea>
-        <textarea class="first_line container" disabled elevation="5">제드 유저 난이도 부심 관련 얘기가 있는데 난 제드 유저들이 이해가 감. 여기 팁창이 솔직히 다른 팁창에 비해 난이도고 성능이고 억까가 심하긴 하잖슴. 내가 보기엔 여기 있는 제드 유저들이 난이도 부심을 갖게된건 이런 억까 때문에 이렇게 된거 같음.제드유저한테 뭐라하기 전에 이런 억까들 부터 고쳐야 한다고 봄 나는. 그럼 제드 유저들도 난이도 부심 덜 부릴 수도 있잖슴. 솔직히 여기 있는 제드 유저들 대부분은 착한거 같은데</textarea>
+        <wired-card class="first_line container" elevation="5"><span></span></wired-card>
+        <wired-card class="first_line container" elevation="5"><span></span></wired-card>
     </div>
 
     <div class="who">
@@ -22,4 +20,38 @@
 </wired-card>
 {% endblock %}
 {% block script %}
+<script>
+	const socket = io.connect('http://localhost:3000/single', {
+		path: '/socket.io',
+	});
+
+	// 문제 가져옴
+	socket.emit('make');
+	socket.on('get', function(data) { 
+		const hintcard = document.querySelectorAll('.hint wired-card span');
+		for(let i=0; i< 4;i++){
+			hintcard[i].innerHTML = data[i].content;
+		}
+  	});
+
+	// 확인 버튼
+	function addConfirmEvent(e) {
+		e.preventDefault();
+		const insertedAnswer = document.querySelector('wired-input').value;
+		console.log('확인버튼 누름');
+		socket.emit('correct', insertedAnswer);
+		socket.on('correct', function(data) {
+			if(data === 'corrected'){
+				socket.emit('make');
+			}
+			else {
+				socket.emit('out');
+			}
+		})
+	}
+	const btn = document.querySelector('wired-button');
+	btn.addEventListener('click', addConfirmEvent);	
+	
+	
+</script>
 {% endblock %}
