@@ -28,26 +28,27 @@
 	const socket = io.connect('http://localhost:3000/single', {
 		path: '/socket.io',
 	});
-	socket.emit('make');
 
-	btn = document.querySelector('wired-button');
-	insertedAnswer = document.querySelector('wired-input').value;
-
-	// function addConfirmEvent(e) {
-	//  e.preventDefault();
-	// 	socket.emit('correct', insertedAnswer);
-	// 	socket.on('correct', function(data) {
-	// 		if(data === 'corrected'){
-	// 			socket.emit('make');
-	// 		}
-	// 		else {
-	// 			socket.emit('exit');
-	// 		}
-	// 	})
-	// btn.addEventListener('click', addConfirmEvent);	
+	function addConfirmEvent(e) {
+		e.preventDefault();
+		const insertedAnswer = document.querySelector('wired-input').value;
+		console.log('확인버튼 누름');
+		socket.emit('correct', insertedAnswer);
+		socket.on('correct', function(data) {
+			if(data === 'corrected'){
+				socket.emit('make');
+			}
+			else {
+				socket.emit('exit');
+			}
+		})
+	}
+	const btn = document.querySelector('wired-button');
+	btn.addEventListener('click', addConfirmEvent);	
 		
 	socket.on('get', function(data) { // 문제 가져옴
-		console.log('get Data:' );
+		console.log('퀴즈가져옴');
+		console.log('get Data:' + data );
 
 		// const quizSet = document.querySelectorAll('.hint wired-card')
 		// console.log('quizSet client: ' + quizSet);

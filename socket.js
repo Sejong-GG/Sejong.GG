@@ -1,4 +1,8 @@
 const SocketIO = require('socket.io');
+const connect=require('./schemas/index');
+const Chams=require('./schemas/champion');
+//Chams는 이제 모델을 담고있다.
+//mongoose.model('Champion', championSchema);
 
 module.exports = (server, app, sessionMiddleware) => {
   const io = SocketIO(server, { path: '/socket.io' });
@@ -19,8 +23,9 @@ module.exports = (server, app, sessionMiddleware) => {
     const singleRoomId=Math.random();
     //랜덤 난수가 완벽히 똑같기 힘든 점을 이용
     //굳이 프론트에서 링크로 요청을 받지 않고 난수로 아이디 생성
-    console.log(singleRoomId);
+    console.log(`만들어진 방:${singleRoomId}`);
     socket.join(singleRoomId);
+
     const champions = ["amumu", "janna", "katarina", "garen", "lux", "gnar", "zed", "annie", "monkeyking", "akali", "camille", "drmundo", "kennen"];
     //받아올 챔 이름들
 
@@ -36,15 +41,16 @@ module.exports = (server, app, sessionMiddleware) => {
         {
           quizSet[i]=docs[randomIndex[i]]
         }
+        // console.log(quizSet);
         return quizSet;
       });
     }
 
     socket.on('make', ()=>//make 요청이 오면,
     {
-	  console.log('make 실행');
       var quizSet=[];
       quizSet=sendQuizSet();
+	  console.log(`퀴즈셋보낼방:${singleRoomId}`);
       socket.to(singleRoomId).emit('get', quizSet);
       //해당 유저의 singleRoom에 get 으로 퀴즈셋 전송
     });
@@ -52,6 +58,10 @@ module.exports = (server, app, sessionMiddleware) => {
     socket.on('disconnect',()=>{
       socket.leave(singleRoomId);
     });
+
+	socket.on('correct', (data) => {
+		console.log('correct 이벤트:' + JSON.stringify(data));
+	});
   })
 
 }
