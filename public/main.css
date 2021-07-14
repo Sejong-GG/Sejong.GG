@@ -58,15 +58,15 @@ wired-input.room {
 .vertical-align {
 	display: inline-block;
 	text-align: center;
-	margin: 30px auto;
+	margin: 0 auto;
 	height: 100%;
 	width: 80%;
 }
 /************************* 싱글 화면 css *************************/
 .entire_single {
   width: 800px;
-  height: 750px;
-  margin: 70px auto;
+  height: 860px;
+  margin: 40px auto;
   padding: 20px;
   display: block;
 }
@@ -127,6 +127,12 @@ textarea {
   border-radius: 10px;
   box-shadow: inset 0px 0px 5px white;
 }
+
+.exit {
+  margin-top: 70px;
+}
+
+
 /*****************************************************************/
 
 /**************************** 로딩 화면 **************************/
