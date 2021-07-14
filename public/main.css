@@ -65,25 +65,22 @@ wired-input.room {
 .chat-head {
 	display: inline-block;
 	width: 90%;
-	/* background-color: aqua; */
 }
 .chat-header-left{
 	float: left;
 	font-size: 50px;
-	/* background-color: yellow; */
 }
 .chat-header-right{
 	float: right; 
 	margin: auto 0;
-	/* background-color: yellowgreen; */
 }
 #chat-list{
 	margin: 0px auto;
 	height: 500px;
 	width: 90%;
-	/* display: inline-block; */
 }
 #chat-form{
+	width: 90%;
 	margin: 20px auto;
 }
 #chat{
