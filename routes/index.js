@@ -32,6 +32,7 @@ router.get('/single', async (req,res,next) => {
 });
 
 router.get('/crawl', async (req, res, next) => {
+    await Champion.deleteMany({});
     await Champion.create(crawlData);
     res.redirect('/');
 });
