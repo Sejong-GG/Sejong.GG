@@ -1,21 +1,25 @@
 {% extends 'layout.html' %}
 {% block content %}
 <wired-card class="loading" elevation="5" >
-    <wired-card class="waiting" elevation="3" >
-        <p>다른 사람들을 기다립시다...</p>
+    <wired-card class="waiting_loading" elevation="2" >
+        <p>로딩중... 은 아니고 게임 설명입니다...</p>
         <wired-spinner spinning duration="1000"></wired-spinner>
+        
     </wired-card>
-    <p class="boring">심심하시면... 미리 공부하세요... ----></p>
-    <wired-fab><mwc-icon>op.gg</mwc-icon></wired-fab>
-    <p class="hidden" id="study">공부는 무슨.. 그냥 기다립시다..</p>
+
+    <wired-card class="waiting_menu" elevation="2">
+        <p>< 게임 설명 ></p>
+        <ul>
+            <li>문제는 총 10문제로 구성되어있습니다!</li>
+            <li>가장 많이 맞힌 사람순으로 높은 랭킹을 차지합니다!</li>
+            <li>같은 점수끼리는 문제를 푸는데 걸린 시간이 짧은 사람이 높은 랭킹을 차지합니다!</li>
+            <li>1등을 노려보세요!!!</li>
+        </ul>
+
+        <p class="boring"> * 게임 입장하기 ----></p>
+        <wired-fab><mwc-icon onclick="location.href='http://localhost:3000/single'">입장</mwc-icon></wired-fab> 
+    </wired-card>
 </wired-card>
 {% endblock %}
 {% block script %}
-<script>
-    const study = document.getElementById("study");
-    const icon = document.querySelector("wired-fab");
-    icon.addEventListener("click", () => {
-        study.classList.remove("hidden");
-    });
-</script>
 {% endblock %}
