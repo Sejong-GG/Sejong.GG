@@ -31,7 +31,7 @@ module.exports = (server, app, sessionMiddleware) => {
 
     function sendQuizSet()
     {
-      var quizSet=[];//넘길 퀴즈셋 초기화
+      var quizSet1=[];//넘길 퀴즈셋 초기화
       var randomtestIndex=0;
 
       Chams.find({name:champions[randomtestIndex]}, function(err,docs)
@@ -39,23 +39,51 @@ module.exports = (server, app, sessionMiddleware) => {
         var randomIndex=[0,1,2,3];
         for(var i=0;i<4;i++)
         {
-          quizSet[i]=docs[randomIndex[i]]
+          quizSet1[i]=docs[randomIndex[i]]
         }
-        console.log(quizSet);
-        return quizSet;
+        //console.log(quizSet);
+        return quizSet1[0];
       });
     }
 
     var quizSet=[];
     quizSet=sendQuizSet();
-    socket.to(singleRoomId).emit('get', quizSet);
+    socket.emit('get', quizSet);
 
     socket.on('make', ()=>//make 요청이 오면,
     {
       var quizSet=[];
-      quizSet=sendQuizSet();
-      socket.to(singleRoomId).emit('get', quizSet);
+      var quizSet1=[];//넘길 퀴즈셋 초기화
+      var randomtestIndex=0;
+
+      Chams.find({name:champions[randomtestIndex]}, function(err,docs)
+      {
+        var randomIndex=[0,1,2,3];
+        for(var i=0;i<4;i++)
+        {
+          quizSet1[i]=docs[randomIndex[i]]
+        }
+        socket.emit('get', quizSet1);
+      });
+      // quizSet=sendQuizSet();
+      // console.log(quizSet);
+      
       //해당 유저의 singleRoom에 get 으로 퀴즈셋 전송
+    });
+
+    //
+
+    socket.on('correct', (answer,score,time)=>
+    {
+      //answer은 보낸 문제셋의 이름값과 사용자가 보낸 정답지 배열
+      //score은 현재 사용자의 점수
+      if(answer[0]==answer[1])
+      {
+        score+=1;
+        var quizSet=[];
+        quizSet=sendQuizSet();
+        socket.to(singleRoomId).emit('get', {quizSet, score})
+      }
     });
     
     socket.on('disconnect',()=>{
