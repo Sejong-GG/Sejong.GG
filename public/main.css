@@ -107,6 +107,9 @@ wired-input.room {
   display: inline-block;
   border: 0;
   outline: 0;
+  resize: none;
+  background-color: white;
+  color: black;
 }
 
 .second_line {
@@ -141,5 +144,35 @@ textarea {
 }
 /*****************************************************************/
 
+/**************************** 로딩 화면 **************************/
 
+wired-card.loading {
+  width: 540px;
+  height: 500px;
+  margin: 140px auto;
+  padding: 20px;
+  display: block;
+  text-align: center;
+}
 
+wired-card.waiting {
+  width: 500px;
+  height: 200px;
+  margin-top: 0;
+  margin-bottom: 50px;
+  padding: 20px;
+  display: block;
+  text-align: center;
+}
+
+wired-fab {
+  --wired-fab-bg-color: gray;
+  display: inline;
+}
+
+.boring {
+  display: inline;
+  margin-top: 140px;
+}
+
+/*****************************************************************/
