@@ -44,4 +44,7 @@ router.get('/loading', async (req,res,next) => {
 	res.render('loading')
 })
 
+router.get('/chat', async (req,res,next) => {
+	res.render('chat')
+})
 module.exports = router;
