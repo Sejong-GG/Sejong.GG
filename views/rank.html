@@ -1,0 +1,70 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+<wired-card class="entire_single" elevation="5" >
+	<h3>랭크 Top 10</h3>
+	{{ userName }} 이/가 걸린시간? xx초<br>
+	<div class="horizon-left">
+	<table id="left-table" style="width:inherit">
+		<thead>
+		<tr>
+			<th>순위</ht>
+			<th>유저 이름</th>
+			<th>시간</th>
+		</tr>
+		</thead>
+		<tbody>
+
+		</tbody>
+	</table>
+	</div>
+
+	<div class="horizon-right">
+	<table id="right-table" style="width:inherit">
+		<thead>
+		<tr>
+			<th>순위</ht>
+			<th>유저 이름</th>
+			<th>시간</th>
+		</tr>
+		</thead>
+		<tbody>
+
+		</tbody>
+	</table>
+	</div>
+	<wired-button class="vertical-btn">메인 화면</wired-button>
+</wired-card>
+{% endblock %}
+{% block script %}
+<script>
+	const el = tag => document.createElement(tag);
+	let leftTableBody = document.querySelector('#left-table');
+	let rightTableBody = document.querySelector('#right-table');
+	console.log(leftTableBody,rightTableBody);
+	
+	function drawTable(tbody, start, end){
+		for(let i = start; i<end; i++){
+			let tr = el('tr');
+			let td1 = el('td');
+			let td2 = el('td');
+			let td3 = el('td');
+			td1.innerHTML = i+1;
+			td2.innerHTML = `포르투갈 어줍짢은 오줌싸개`;
+			td3.innerHTML = `${i+1}초`;
+			tr.appendChild(td1);
+			tr.appendChild(td2);
+			tr.appendChild(td3);
+			tbody.appendChild(tr);
+		}
+	}
+
+	drawTable(leftTableBody, 0, 5);
+	drawTable(rightTableBody, 5, 10);
+
+	btn = document.querySelector('wired-button');
+	btn.addEventListener('click', function(e){
+		window.location.href = 'http://localhost:3000';
+	});
+</script>
+{% endblock %}

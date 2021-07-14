@@ -40,4 +40,12 @@ router.get('/single', async (req,res,next) => {
 	res.render('single')
 })
 
+router.get('/rank', async (req,res,next) => {
+	res.render('rank')
+})
+
+router.get('/loading', async (req,res,next) => {
+	res.render('loading')
+})
+
 module.exports = router;

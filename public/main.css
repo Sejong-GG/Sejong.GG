@@ -62,6 +62,21 @@ wired-input.room {
 	height: 100%;
 	width: 80%;
 }
+/************************* 싱글 랭크 css *************************/
+.horizon-left{
+	float: left;
+	width: 390px;
+}
+
+.horizon-right{
+	float: right;
+	width: 390px;
+}
+
+.vertical-btn {
+	display: inline-block;
+	margin: 50px auto;
+}
 /************************* 싱글 화면 css *************************/
 .entire_single {
   width: 800px;
@@ -77,13 +92,12 @@ wired-input.room {
 }
 
 .hint {
-  height: 200px;
+  height: 250px;
   margin: 0;
 }
 
 .who {
   height: 200px;
-  margin-top: 70px;
   padding: 0;
 }
 
@@ -93,6 +107,9 @@ wired-input.room {
   display: inline-block;
   border: 0;
   outline: 0;
+  resize: none;
+  background-color: white;
+  color: black;
 }
 
 .second_line {
@@ -102,25 +119,60 @@ wired-input.room {
   margin-right: 100px;
 }
 
+textarea {
+  margin-top: 100px;
+}
+
 /* 스크롤바 부분 */
 .container {
   overflow: auto;
+  height: 200px;
 }
 .container::-webkit-scrollbar {
-  width: 10px;
+  width: 7px;
 }
 .container::-webkit-scrollbar-thumb {
-  background-color: #2f3542;
+  background-color: white;
   border-radius: 10px;
   background-clip: padding-box;
   border: 2px solid transparent;
 }
 .container::-webkit-scrollbar-track {
-  background-color: grey;
+  background-color: gray;
   border-radius: 10px;
   box-shadow: inset 0px 0px 5px white;
 }
 /*****************************************************************/
 
+/**************************** 로딩 화면 **************************/
 
+wired-card.loading {
+  width: 540px;
+  height: 500px;
+  margin: 140px auto;
+  padding: 20px;
+  display: block;
+  text-align: center;
+}
 
+wired-card.waiting {
+  width: 500px;
+  height: 200px;
+  margin-top: 0;
+  margin-bottom: 50px;
+  padding: 20px;
+  display: block;
+  text-align: center;
+}
+
+wired-fab {
+  --wired-fab-bg-color: gray;
+  display: inline;
+}
+
+.boring {
+  display: inline;
+  margin-top: 140px;
+}
+
+/*****************************************************************/
