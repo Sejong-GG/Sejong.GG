@@ -7,10 +7,10 @@ let baseUrl = "https://www.op.gg/champion/";
 let backUrl = "/statistics/top/comment";
 let data = [];
 
-function crawlData(champion, rep) {
+function crawlData(champion) {
     const getHtml = async () => {
         try {
-            return await axios.get(baseUrl + champion + backUrl);
+            return await axios.get(baseUrl + champion.eng + backUrl);
         } catch(err) {
             console.log(err);
         }
@@ -19,7 +19,6 @@ function crawlData(champion, rep) {
     getHtml().then(html => {
         const $ = cheerio.load(html.data);
         const $comments = $("div.tabItem.ChampionCommentTab-Popular ul div.comment-box__content");
-        var re = new RegExp(rep, "g");
 
         $comments.each(async function(i, elem) {
             var str = $(this).find("p.comment-box__txt").text()
@@ -28,16 +27,22 @@ function crawlData(champion, rep) {
                 str = str.replace(new RegExp(el, 'g'), "(심한 욕)")
             })
 
+            str = str.replace(new RegExp(champion.kor, "g"), "(챔피언 이름)")
+
+            champion.sim.forEach((el) => {
+                str = str.replace(new RegExp(el, 'g'), "(챔피언 이름)")
+            })
+
             data.push({
-                name: champion,
-                content: str.replace(re, "(챔피언 이름)")
+                name: champion.eng,
+                content: str,
             })
         })
     })
 }
 
 champions.forEach((el) => {
-    crawlData(el.eng, el.kor);
+    crawlData(el);
 })
 
 module.exports = data;
