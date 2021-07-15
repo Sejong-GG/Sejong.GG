@@ -10,7 +10,7 @@ const chatSchema = new Schema({
   score: {
     type: Number,
     required: true,
-    max: 10,
+    //max: 10,
   },
   time:{
       type: String,
@@ -21,4 +21,4 @@ const chatSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model('Chat', chatSchema);
+module.exports = mongoose.model('Rank', chatSchema);
