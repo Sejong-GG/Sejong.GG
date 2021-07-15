@@ -116,7 +116,7 @@ wired-input.room {
 }
 #chat-list{
 	margin: 0px auto;
-	height: 670px;
+	height: 600px;
   /* height: 100%; */
 	width: 90%;
   border: 4px dashed #bcbcbc;
@@ -176,7 +176,7 @@ wired-input.room {
 /************************* 싱글 화면 css *************************/
 .entire_single {
   width: 850px;
-  height: 900px;
+  height: 830px;
   margin: auto;
   padding: 20px;
   display: block;
@@ -189,7 +189,7 @@ wired-input.room {
 
 .hint {
   height: 250px;
-  margin-bottom: 15px;
+  margin-bottom: 0px;
 }
 
 .who {
@@ -211,6 +211,7 @@ wired-input.room {
   width: 250px;
   height: 40px;
   display: inline-block;
+  margin-top: 120px;
   margin-right: 100px;
 }
 
@@ -248,7 +249,7 @@ textarea {
 }
 
 .exit {
-  margin-top: 70px;
+  margin-top: 40px;
 }
 
 #appear 
