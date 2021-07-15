@@ -89,17 +89,22 @@ wired-input.room {
 /************************* 싱글 랭크 css *************************/
 .horizon-left{
 	float: left;
-	width: 390px;
+	width: 405px;
 }
 
 .horizon-right{
 	float: right;
-	width: 390px;
+	width: 405px;
 }
-
 .vertical-btn {
 	display: inline-block;
 	margin: 50px auto;
+}
+#rank-userName,#rank-userTime {
+	color: red;
+}
+#rank-userName-out{
+	margin: 10px auto;
 }
 /************************* 싱글 화면 css *************************/
 .entire_single {
