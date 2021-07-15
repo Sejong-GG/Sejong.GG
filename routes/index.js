@@ -18,11 +18,9 @@ router.get('/', async (req, res, next) => {
 
 // 로그인
 router.post('/login', (req, res, next) => {
-    console.log(req.body.userName);
 	try {
         req.session.userName = req.body.userName;
 	    res.send('ok');
-        //res.redirect('/');
 	} catch (error) {
 	    console.error(error);
 	    next(error);
@@ -57,21 +55,24 @@ router.get('/rank', async (req,res,next) => {
 	res.render('rank', {data})
 })
 
-// 공개 채팅방
+// 채팅
 router.get('/chat', async (req,res,next) => {
     const userName = req.session.userName;
-	res.render('chat', {userName : userName})
+    if(userName) {
+        res.render('chat', {userName : userName})
+    } else {
+        res.render('login')
+    }
 })
 
+// 채팅 데이터
 router.post('/chat/data', async (req, res, next) => {
-	console.log('submit 요청 받음');
 	try {
 	  	const chat = await Chat.create({
 		user: req.session.userName,
 		chat: req.body.chat,
 	  });
 	    req.app.get('io').of('/chat').to("open").emit('chat', chat);
-	    console.log('/chat 요청 보냄');
 	    res.send('ok');
 	} catch (error) {
 	    console.error(error);

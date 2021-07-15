@@ -3,7 +3,7 @@
 <wired-card class="entire_single">
 	<div class="chat-head">
 		<span class="chat-header-left">{{ userName }}</span>
-		<span class="chat-header-right"><a href="/lobby" id="exit-btn">방 나가기</a></span>
+		<span class="chat-header-right"><a href="/" id="exit-btn">방 나가기</a></span>
 	</div>
 	<div class="container" id="chat-list"> <!--TODO 스크롤 되는지 확인-->
 		<div id="scroll">
@@ -35,11 +35,6 @@
 		</div>
 		
 	</div>
-	<!----------------- 입력 영역 ----------------->
-	<!-- <div id="chat-form">
-		<wired-input id="chat" name="chat" placeholder="입력해주세요"></wired-input>
-		<wired-button>전송</wired-button> 
-	</div> -->
 
 	<form action="/data" id="chat-form" method="post" enctype="multipart/form-data">
 		<input type="text" id="chat" name="chat"></input>
@@ -51,7 +46,6 @@
 
 {% block script %}
 <script>
-
 	const socket = io.connect('http://localhost:3000/chat', {
 		path: '/socket.io',
 	});
