@@ -40,6 +40,20 @@
 		path: '/socket.io',
 	});
 
+	// 응시 시간 측정
+	let startTimePoint = new Date();
+	let endTimePoint;
+
+	// 응시 최대 시간 설정(10분)
+	let timeout = setTimeout(() => {
+		let result = {};
+		result.userName = sessionStorage.getItem('userName');
+		result.score = parseInt(sessionStorage.getItem('correctedCount'));
+		result.time = 3;
+		confirm('컷!');
+		socket.emit('finish',result )
+	},10 * 60 * 1000);
+
 	sessionStorage.setItem('correctedCount', 0);
 	sessionStorage.setItem('totalCount', 0);
 	let randomIndex;
@@ -73,12 +87,16 @@
 				}
 				alert(`문제 푸는 중\n ${totalCount} 중 ${sessionStorage.getItem('correctedCount')}개 맞았습니다`);
 				if(totalCount == 10){
-					let userName = sessionStorage.getItem('userName');
-					let score = sessionStorage.getItem('correctedCount');
-					let time = 3;
+					clearTimeout(timeout);
+					endTimePoint = new Date();
+					let result = {};
+					result.userName = sessionStorage.getItem('userName');
+					result.score = parseInt(sessionStorage.getItem('correctedCount'));
+					result.time = (endTimePoint.getTime() - startTimePoint.getTime())/1000; // 초 단위
+
 					alert(`문제 다 풀었다! finish 이벤트 전송합니다`);
 					socket.off('correction');  //소켓이벤트 중복 실행방지. 버튼 이벤트 발생시 해당 이벤트가 계속 추가되어 발생
-					socket.emit('finish', (userName, score, time));
+					socket.emit('finish', result);
 				}
 				else{
 					socket.off('correction');  //소켓이벤트 중복 실행방지. 버튼 이벤트 발생시 해당 이벤트가 계속 추가되어 발생
@@ -87,6 +105,7 @@
 			}
 		})
 	}
+
 	const btn = document.querySelector('wired-button');
 	btn.addEventListener('click', addConfirmEvent);	
 
