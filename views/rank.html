@@ -71,10 +71,14 @@
 	let userTime = sessionStorage.getItem('userTime');
 	if(userName != undefined && userName != null && userTime != null){
 		const rankUserBox = document.getElementById('rank-userName-out');
+		const correctedCount = sessionStorage.getItem('correctedCount');
 		const rankUserName = userName;
 		const rankUserTime = userTime;
-		let text = `자칭 <span id="rank-userName">${rankUserName}</span> 이/가 걸린시간? <span id="rank-userTime">${rankUserTime}초</span>`;
+		let text = `자칭 <span id="rank-userName">${rankUserName}</span> 의 결과? <span id="rank-userTime">${correctedCount}개 ${rankUserTime}초</span>`;
 		rankUserBox.innerHTML = text;
+		sessionStorage.removeItem('userTime');
+		sessionStorage.removeItem('correctedCount');
+		sessionStorage.removeItem('totalCount');
 	}
 	
 	btn = document.querySelector('wired-button');
