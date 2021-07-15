@@ -62,12 +62,12 @@
 
 	// 문제 가져옴
 	socket.emit('make');
-	socket.on('get', function(quizSet) { 
-		let data = quizSet.quizSet1;
-		randomIndex = quizSet.randomtestIndex;
+	socket.on('get', function(data) { 
+		let quizSet = data.quizSet;
+		randomIndex = data.randomtestIndex;
 		const hintcard = document.querySelectorAll('.hint textarea');
 		for(let i=0; i< 4;i++){
-			hintcard[i].innerHTML = data[i].content;
+			hintcard[i].innerHTML = quizSet[i].content;
 		}
 		let totalCount = sessionStorage.getItem('totalCount');
 		sessionStorage.setItem('totalCount', parseInt(totalCount) + 1);
