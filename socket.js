@@ -44,58 +44,43 @@ module.exports = (server, app, sessionMiddleware) => {
     //굳이 프론트에서 링크로 요청을 받지 않고 난수로 아이디 생성
     console.log(singleRoomId);
     socket.join(singleRoomId);
+		
+	const champions = ["amumu", "janna", "katarina", "garen", "lux", "gnar", "zed", "annie", "monkeyking", "akali", "camille", "drmundo", "kennen"];
+    socket.on('make', () => 
+	{
+      let quizSet=[]; // 넘길 퀴즈셋 초기화
+      let randomtestIndex;
 
-    const champions = ["amumu", "janna", "katarina", "garen", "lux", "gnar", "zed", "annie", "monkeyking", "akali", "camille", "drmundo", "kennen"];
-    //받아올 챔 이름들
-
-    function sendQuizSet()
-    {
-      var quizSet1=[];//넘길 퀴즈셋 초기화
-      var randomtestIndex=0;
+	  while(true){
+		randomtestIndex = Math.floor(Math.random() * champions.length);
+		if(champions[randomtestIndex] != ""){
+			break;
+		}
+	  }
 
       Chams.find({name:champions[randomtestIndex]}, function(err,docs)
       {
-        var randomIndex=[0,1,2,3];
-        for(var i=0;i<4;i++)
-        {
-          quizSet1[i]=docs[randomIndex[i]]
-        }
-        //console.log(quizSet);
-        return quizSet1;
-      });
-    }
-
-    // var quizSet=[];
-    // quizSet=sendQuizSet();
-    // socket.emit('get', quizSet);
-
-    socket.on('make', ()=>//make 요청이 오면,
-    {
-      if(!req.session.count||req.session.count==0)
-        req.session.count=0;
-      //세션카운트값이 없으면 0으로 초기화, 0이어도 0 초기화
-      var quizSet1=[];//넘길 퀴즈셋 초기화
-      var randomtestIndex = Math.floor(Math.random() * champions.length);
-      
-      Chams.find({name:champions[randomtestIndex]}, function(err,docs)
-      {
-        var randomIndex=[0,1,2,3];
+		const targets = [0,1,2,3,4,5,6,7,8,9,10];
+		let index;
         for(let i = 0; i<4;i++){
-          randomIndex[i] = Math.floor(Math.random() * 10);
+			while(true){
+				index = Math.floor(Math.random() * 10);
+				if(targets[index] != -1){
+					break;
+				}
+			}
+		    quizSet[i]=docs[index];
+			targets[index] = -1;
         }
-        console.log(`randomIndex: ${randomIndex}`);
-        for(var i=0;i<4;i++)
-        {
-          quizSet1[i]=docs[randomIndex[i]]
-        }
-        console.log(quizSet1);
-        single.in(singleRoomId).emit
-        ('get', {quizSet1, randomtestIndex}); //get으로 퀴즈셋 전송
+        single.in(singleRoomId).emit('get', {quizSet, randomtestIndex}); // get으로 퀴즈셋 전송
+		champions[randomtestIndex] = "";
+		console.log(`---------\ntargets: ${targets}\nchampions: ${champions}\n---------`);
       });
     });
 
     socket.on('answer', (userAnswer, randomtestIndex) =>
     {
+	  const champions = ["amumu", "janna", "katarina", "garen", "lux", "gnar", "zed", "annie", "monkeyking", "akali", "camille", "drmundo", "kennen"];
       console.log(`userAnswer: ${userAnswer}, index: ${randomtestIndex}, 정답: ${champions[randomtestIndex]}`);
       
       // FIXME 
