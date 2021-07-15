@@ -37,6 +37,7 @@
         button.innerText="입장";
         change.classList.remove("hidden");
     } else if(button.innerText==="입장"){
+		sessionStorage.setItem('userName', user);
         window.location.href = 'http://localhost:3000/login/' + user;
     }
     
