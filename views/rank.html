@@ -3,7 +3,7 @@
 
 <wired-card class="entire_single" elevation="5" >
 	<h3>랭크 Top 10</h3>
-	<div id="rank-userName-out">자칭 <span id="rank-userName"></span> 이/가 걸린시간? <span id="rank-userTime">3초</span></div><br>
+	<div id="rank-userName-out">자칭 <span id="rank-userName"></span> 이/가 걸린시간? <span id="rank-userTime"></span></div><br>
 	<div class="horizon-left">
 	<table id="left-table" style="width:inherit">
 		<thead>
@@ -43,7 +43,9 @@
 	let leftTableBody = document.querySelector('#left-table');
 	let rightTableBody = document.querySelector('#right-table');
 	let rankUserName = document.querySelector('#rank-userName');
+	let rankUserTime = document.querySelector('#rank-userTime');
 	rankUserName.innerHTML= sessionStorage.getItem('userName');
+	rankUserTime.innerHTML= sessionStorage.getItem('userTime')+'초';
 	
 	function drawTable(tbody, start, end){
 		for(let i = start; i<end; i++){
