@@ -8,9 +8,8 @@ const router = express.Router();
 
 // 메인
 router.get('/', async (req, res, next) => {
-    const userName = req.session.userName;
-    if(userName) {
-        res.render('lobby', { userName: userName })
+    if(req.session.userName) {
+        res.render('lobby')
     } else {
         res.render('login')
     }
@@ -29,14 +28,13 @@ router.post('/login', (req, res, next) => {
 	}
 })
 
-// 로비
-router.get('/lobby', async (req,res,next) => {
-	res.render('lobby')
-});
-
 // 싱글 게임
 router.get('/single', async (req,res,next) => {
-	res.render('single');
+    if(req.session.userName) {
+	    res.render('single');
+    } else {
+        res.render('login');
+    }
 });
 
 // 데이터 크롤링
@@ -60,7 +58,12 @@ router.get('/rank', async (req,res,next) => {
 // 공개 채팅방
 router.get('/chat', async (req,res,next) => {
     const userName = req.session.userName;
-	res.render('chat', {userName : userName})
+
+    if(userName) {
+        res.render('chat', {userName : userName})
+    } else {
+        res.render('login')
+    }
 })
 
 router.post('/chat/data', async (req, res, next) => {
