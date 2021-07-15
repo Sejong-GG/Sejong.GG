@@ -39,7 +39,7 @@
                 userName: user,
             })
             .then(() => {
-                window.location.href = 'http://localhost:3000/';
+                window.location.reload();
             })
             .catch((err) => {
                 console.error(err);
@@ -50,12 +50,14 @@
             const chosedLoaction = place[Math.floor(Math.random() * place.length)];
             const chosedAdjective = adj[Math.floor(Math.random() * adj.length)];
             const chosedWho = who[Math.floor(Math.random() * who.length)];
-
             const userName = [chosedLoaction, chosedAdjective, chosedWho].join(' '); 
-
             return userName;
-        
         }
     });
+    window.onload = () => {
+        if (new URL(location.href).searchParams.get('error')) {
+            alert(new URL(location.href).searchParams.get('error'));
+        }
+    };
 </script>
 {% endblock %}
