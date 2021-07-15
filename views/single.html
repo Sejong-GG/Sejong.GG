@@ -22,11 +22,12 @@
         <wired-dialog-demo>
             <wired-button elevation="3" id="lobby">로비로 돌아가기</wired-button>
             <wired-dialog class="hidden" open>
-                <p>
-                    정말 나가실건가요?
-                </p>
-                <wired-button id="go_out" onclick="location.href='http://localhost:3000/lobby'">나가기</wired-button>
-                <wired-button id="leave">계속 하기</wired-button>
+                <div id="appear" >
+                    <p>정말 나가실건가요?</p>
+                    <wired-button id="go_out" onclick="location.href='http://localhost:3000/lobby'">나가기</wired-button>
+                    <wired-button id="leave">계속 하기</wired-button>
+                </div>
+                
             </wired-dialog>
         </wired-dialog-demo>
     </div>
