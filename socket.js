@@ -40,39 +40,39 @@ module.exports = (server, app, sessionMiddleware) => {
     	const singleRoomId=Math.random();
     	console.log(singleRoomId);
     	socket.join(singleRoomId);
-
-    	function sendQuizSet() {
-      		var quizSet1=[];
-      		var randomtestIndex=0;
-
-      		Chams.find({name:champions[randomtestIndex].eng}, function(err,docs) {
-        		var randomIndex=[0,1,2,3];
-        		for(var i=0;i<4;i++) {
-        			quizSet1[i]=docs[randomIndex[i]]
-        		}
-        		return quizSet1;
-      		});
-		}
+		const championsIndex = new Array(champions.length).fill(1);
 
     	socket.on('make', () => {
 			if(!req.session.count||req.session.count==0) {
 				req.session.count=0;
 			}
 				
-			var quizSet1=[];
-			var randomtestIndex = Math.floor(Math.random() * champions.length);
+			var quizSet=[];
+			var randomtestIndex;
 		
+			while(true){
+				randomtestIndex = Math.floor(Math.random() * champions.length);
+				if(championsIndex[randomtestIndex] != 'x'){
+					break;
+				}
+			}
+
 			Chams.find({name:champions[randomtestIndex].eng}, function(err,docs) {
-				var randomIndex=[0,1,2,3];
-				for(let i = 0; i<4;i++) {
-					randomIndex[i] = Math.floor(Math.random() * 10);
+				const targets = new Array(docs.length).fill(1);
+				let index;
+				for(let i = 0; i<4;i++){
+					while(true){
+						index = Math.floor(Math.random() * 10);
+						if(targets[index] != 'x'){
+							break;
+						}
+					}
+					quizSet[i]=docs[index];
+					targets[index] = 'x';
 				}
-				console.log(`randomIndex: ${randomIndex}`);
-				for(var i=0;i<4;i++) {
-					quizSet1[i]=docs[randomIndex[i]]
-				}
-				console.log(quizSet1);
-				single.in(singleRoomId).emit('get', {quizSet1, randomtestIndex});
+				single.in(singleRoomId).emit('get', {quizSet, randomtestIndex});
+				championsIndex[randomtestIndex] = 'x';
+				console.log(`---------\ntargets: ${targets}\nchampions: ${championsIndex}\n---------`);
 			});
     	});
 
