@@ -53,6 +53,9 @@ module.exports = (server, app, sessionMiddleware) => {
 
     socket.on('make', ()=>//make 요청이 오면,
     {
+      if(!req.session.count||req.session.count==0)
+        req.session.count=0;
+      //세션카운트값이 없으면 0으로 초기화, 0이어도 0 초기화
       var quizSet1=[];//넘길 퀴즈셋 초기화
       var randomtestIndex=0;
 
@@ -64,9 +67,36 @@ module.exports = (server, app, sessionMiddleware) => {
           quizSet1[i]=docs[randomIndex[i]]
         }
         console.log(quizSet1);
-        single.in(singleRoomId).emit('get', quizSet1);//get으로 퀴즈셋 전송
+        single.in(singleRoomId).emit
+        ('get', {quizSet1, randomtestIndex});//get으로 퀴즈셋 전송
       });
     });
+
+    socket.on('answer', (userAnswer, randomtestIndex) =>
+    {
+      if(userAnswer)
+      {
+        userAnswer='amumu';
+        //인덱스에 맞는 이름을 받아오도록 설정 요망.
+        //챔 인덱스 보고 챔 이름을 알수 없어요 ㅠㅠ
+      }
+      if(champions[randomtestIndex]==userAnswer)//정답이면
+      {
+        req.session.count+=1;
+        single.in(singleRoomId).emit
+        ('response', req.session.count);
+        //response로 맞춘 문제 갯수 전송
+        //count가 10이어도 클라이언트에서 finish 호출하도록 작성
+      }
+      else
+      {
+        req.session.count=0;
+        single.in(singleRoomId).emit
+        ('response', 'wrong');
+        //response로 wrong String 전송
+        //클라이언트는 넘어온 값이 wrong이면 클라이언트에서 finish 호출
+      }
+    })
 
     socket.on('finish', (score,time)=>
     {
