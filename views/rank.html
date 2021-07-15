@@ -54,10 +54,11 @@
 {% block script %}
 <script>
 	let userName = sessionStorage.getItem('userName');
-	if(userName != undefined || userName != null){
+	let userTime = sessionStorage.getItem('userTime');
+	if(userName != undefined && userName != null && userTime != null){
 		const rankUserBox = document.getElementById('rank-userName-out');
 		const rankUserName = userName;
-		const rankUserTime = sessionStorage.getItem('userTime');
+		const rankUserTime = userTime;
 		let text = `자칭 <span id="rank-userName">${rankUserName}</span> 이/가 걸린시간? <span id="rank-userTime">${rankUserTime}초</span>`;
 		rankUserBox.innerHTML = text;
 	}
