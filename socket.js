@@ -57,18 +57,22 @@ module.exports = (server, app, sessionMiddleware) => {
         req.session.count=0;
       //세션카운트값이 없으면 0으로 초기화, 0이어도 0 초기화
       var quizSet1=[];//넘길 퀴즈셋 초기화
-      var randomtestIndex=0;
-
+      var randomtestIndex = Math.floor(Math.random() * champions.length);
+      
       Chams.find({name:champions[randomtestIndex]}, function(err,docs)
       {
         var randomIndex=[0,1,2,3];
+        for(let i = 0; i<4;i++){
+          randomIndex[i] = Math.floor(Math.random() * 10);
+        }
+        console.log(`randomIndex: ${randomIndex}`);
         for(var i=0;i<4;i++)
         {
           quizSet1[i]=docs[randomIndex[i]]
         }
         console.log(quizSet1);
         single.in(singleRoomId).emit
-        ('get', {quizSet1, randomtestIndex});//get으로 퀴즈셋 전송
+        ('get', {quizSet1, randomtestIndex}); //get으로 퀴즈셋 전송
       });
     });
 
