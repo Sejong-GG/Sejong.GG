@@ -17,9 +17,16 @@
         </ul>
 
         <p class="boring"> * 게임 입장하기 ----></p>
-        <wired-fab><mwc-icon onclick="location.href='http://localhost:3000/single'">입장</mwc-icon></wired-fab> 
+        <wired-fab><mwc-icon onclick="location.href='/single'">입장</mwc-icon></wired-fab> 
     </wired-card>
 </wired-card>
 {% endblock %}
 {% block script %}
+<script>
+  window.onload = () => {
+    if (new URL(location.href).searchParams.get('error')) {
+      alert(new URL(location.href).searchParams.get('error'));
+    }
+  };
+</script>
 {% endblock %}
