@@ -103,9 +103,9 @@ wired-input.room {
 }
 /************************* 싱글 화면 css *************************/
 .entire_single {
-  width: 800px;
-  height: 860px;
-  margin: 40px auto;
+  width: 850px;
+  height: 900px;
+  margin: auto;
   padding: 20px;
   display: block;
 }
@@ -117,7 +117,7 @@ wired-input.room {
 
 .hint {
   height: 250px;
-  margin: 0;
+  margin-bottom: 15px;
 }
 
 .who {
@@ -129,10 +129,9 @@ wired-input.room {
   width: 350px;
   height: 150px;
   display: inline-block;
-  border: 0;
-  outline: 0;
   resize: none;
   background-color: white;
+  border: 4px dashed #bcbcbc;
   color: black;
 }
 
@@ -145,6 +144,8 @@ wired-input.room {
 
 textarea {
   margin-top: 100px;
+  margin-right: 15px;
+  padding: 15px;
 }
 
 /* 스크롤바 부분 */
@@ -169,6 +170,22 @@ textarea {
 
 .exit {
   margin-top: 70px;
+}
+
+#appear 
+  {
+    animation: fade-in 2s;
+    animation-fill-mode: forwards;
+    display: block;
+  }
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 
