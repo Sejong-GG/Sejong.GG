@@ -39,6 +39,9 @@
 	const socket = io.connect('http://localhost:3000/single', {
 		path: '/socket.io',
 	});
+	sessionStorage.setItem('correctedCount', 0);
+	sessionStorage.setItem('totalCount', 0);
+	let randomIndex;
 
 	// 응시 시간 측정
 	let startTimePoint = new Date();
@@ -56,9 +59,6 @@
 		location.href="/rank" ;
 	},10 * 60 * 1000);
 
-	sessionStorage.setItem('correctedCount', 0);
-	sessionStorage.setItem('totalCount', 0);
-	let randomIndex;
 
 	// 문제 가져옴
 	socket.emit('make');
