@@ -35,6 +35,7 @@
             button.innerText="입장";
             change.classList.remove("hidden");
         } else if(button.innerText==="입장"){
+			sessionStorage.setItem('userName', user);
             axios.post('/login', {
                 userName: user,
             })
