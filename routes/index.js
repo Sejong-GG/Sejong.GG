@@ -3,6 +3,7 @@ const session = require('express-session');
 const crawlData = require('../crawl');
 const Champion = require('../schemas/champion');
 const Rank = require('../schemas/rank');
+const Chat = require('../schemas/chat');
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
@@ -24,7 +25,6 @@ router.get('/room', async (req, res, next) => {
 });
 
 router.get('/lobby', async (req,res,next) => {
-    const userName = req.session.userName;
 	res.render('lobby')
 });
 
@@ -48,8 +48,25 @@ router.get('/loading', async (req,res,next) => {
 })
 
 router.get('/chat', async (req,res,next) => {
-	res.render('chat')
+    const userName = req.session.userName;
+	res.render('chat', {userName : userName})
 })
+
+router.post('/chat/data', async (req, res, next) => {
+	console.log('submit 요청 받음');
+	try {
+	  	const chat = await Chat.create({
+		user: req.session.userName,
+		chat: req.body.chat,
+	  });
+	  req.app.get('io').of('/chat').to("open").emit('chat', chat);
+	  console.log('/chat 요청 보냄');
+	  res.send('ok');
+	} catch (error) {
+	  console.error(error);
+	  next(error);
+	}
+  });
 
 router.get('/test', async (req,res,next) => {
     await Rank.deleteMany({});

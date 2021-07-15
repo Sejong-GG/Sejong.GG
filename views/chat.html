@@ -2,7 +2,7 @@
 {% block content %}
 <wired-card class="entire_single">
 	<div class="chat-head">
-		<span class="chat-header-left">방 이름1as233d</span>
+		<span class="chat-header-left">{{ userName }}</span>
 		<span class="chat-header-right"><a href="/lobby" id="exit-btn">방 나가기</a></span>
 	</div>
 	<wired-card class="container" id="chat-list"> <!--TODO 스크롤 되는지 확인-->
@@ -33,13 +33,20 @@
 		{% endfor %}
 	</wired-card>
 	<!----------------- 입력 영역 ----------------->
-	<div id="chat-form">
+	<!-- <div id="chat-form">
 		<wired-input id="chat" name="chat" placeholder="입력해주세요"></wired-input>
 		<wired-button>전송</wired-button> 
-	</div>
+	</div> -->
+
+	<form action="/data" id="chat-form" method="post" enctype="multipart/form-data">
+		<input type="text" id="chat" name="chat"></input>
+		<button type="submit">전송</button>
+	</form>
 </wired-card>
   
 {% endblock %}
+
+{% block script %}
 <script>
 	const socket = io.connect('http://localhost:3000/chat', {
 		path: '/socket.io',
@@ -47,6 +54,7 @@
 
 	// 입장 문구
 	socket.on('join', function (data) {
+		console.log(data);
 		const div = document.createElement('div');
 		div.classList.add('system');
 		const chat = document.createElement('div');
@@ -57,6 +65,7 @@
 
 	// 퇴장 문구
 	socket.on('exit', function (data) {
+		console.log(data);
 		const div = document.createElement('div');
 		div.classList.add('system');
 		const chat = document.createElement('div');
@@ -68,7 +77,7 @@
 	// 사용자간 채팅
 	socket.on('chat', function (data) {
 		const div = document.createElement('div');
-		if (data.user === '{{user}}') {
+		if (data.user === '{{userName}}') {
 			div.classList.add('mine');
 		} else {
 			div.classList.add('other');
@@ -88,20 +97,23 @@
 		div.style.color = data.user;
 		document.querySelector('#chat-list').appendChild(div);
 	});
-	document.querySelector('wired-button').addEventListener('click', function (e) {
+
+	document.querySelector('#chat-form').addEventListener('submit', function (e) {
 		console.log('submit 누름');
-		// e.preventDefault();
-		// if (e.target.chat.value) {
-		// 	axios.post('/room/{{room._id}}/chat', {
-		// 	chat: this.chat.value,
-		// 	})
-		// 	.then(() => {
-		// 		e.target.chat.value = '';
-		// 	})
-		// 	.catch((err) => {
-		// 		console.error(err);
-		// 	});
-		// }
+		e.preventDefault();
+		console.log(e.target);
+		if (e.target.chat.value) {
+			
+			axios.post('/chat/data', {
+			chat: this.chat.value,
+			})
+			.then(() => {
+				e.target.chat.value = '';
+			})
+			.catch((err) => {
+				console.error(err);
+			});
+		}
 	});
 </script>
-{"mode":"full","isActive":false}
+{% endblock %}

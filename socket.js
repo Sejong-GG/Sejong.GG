@@ -8,15 +8,33 @@ const Rank = require('./schemas/rank');
 module.exports = (server, app, sessionMiddleware) => {
   const io = SocketIO(server, { path: '/socket.io' });
   app.set('io', io);
-  const room = io.of('/room');
   const chat = io.of('/chat');
   const single = io.of('/single'); // single 네임스페이스
 
   io.use((socket, next) => {
-    //cookieParser(process.env.COOKIE_SECRET)(socket.request, socket.request.res, next);
     sessionMiddleware(socket.request, socket.request.res, next);
   });
 
+  chat.on('connection', (socket) => {
+    console.log('chat 네임스페이스에 접속');
+    const req = socket.request;
+    const roomId = 'open'
+    socket.join(roomId);
+    socket.to(roomId).emit('join', {
+      user: 'system',
+      chat: `${req.session.userName}님이 입장하셨습니다.`,
+    });
+
+    socket.on('disconnect', () => {
+      console.log('chat 네임스페이스 접속 해제');
+      socket.leave(roomId);
+      socket.to(roomId).emit('exit', {
+        user: 'system',
+        chat: `${req.session.userName}님이 퇴장하셨습니다.`,
+      });
+    });
+  });
+  
   single.on('connection', (socket)=>
   {
     console.log('싱글서버 접속');
