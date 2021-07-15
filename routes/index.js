@@ -2,6 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const crawlData = require('../crawl');
 const Champion = require('../schemas/champion');
+const Rank = require('../schemas/rank');
 const router = express.Router();
 
 router.get('/', async (req, res, next) => {
@@ -38,7 +39,8 @@ router.get('/crawl', async (req, res, next) => {
 });
 
 router.get('/rank', async (req,res,next) => {
-	res.render('rank')
+    const data = await Rank.find().sort({score:-1}).limit(10);
+	res.render('rank', {data})
 })
 
 router.get('/loading', async (req,res,next) => {
@@ -48,4 +50,17 @@ router.get('/loading', async (req,res,next) => {
 router.get('/chat', async (req,res,next) => {
 	res.render('chat')
 })
+
+router.get('/test', async (req,res,next) => {
+    await Rank.deleteMany({});
+
+    for(var i = 0; i < 40; i++) {
+        await Rank.create({
+            user: "유저",
+            score: i,
+            time: "10",
+        });
+    }
+});
+
 module.exports = router;

@@ -84,16 +84,16 @@ module.exports = (server, app, sessionMiddleware) => {
       {
         req.session.count+=1;
         single.in(singleRoomId).emit
-        ('response', req.session.count);
-        //response로 맞춘 문제 갯수 전송
+        ('correction', req.session.count);
+        //correction으로 맞춘 문제 갯수 전송
         //count가 10이어도 클라이언트에서 finish 호출하도록 작성
       }
       else
       {
         req.session.count=0;
         single.in(singleRoomId).emit
-        ('response', 'wrong');
-        //response로 wrong String 전송
+        ('correction', 'wrong');
+        //correction으로 wrong String 전송
         //클라이언트는 넘어온 값이 wrong이면 클라이언트에서 finish 호출
       }
     })
