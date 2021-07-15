@@ -17,10 +17,17 @@
 		<tbody>
 		{% for rank in ranksLeft %}
 		<tr>
-			<td>{{loop.index}}</td>
-			<td>{{rank.user}}</td>
-			<td>{{rank.score}}개</td>
-			<td>{{rank.time}}초</td>
+			{% if rank.dummy %}
+				<td>{{loop.index}}</td>
+				<td></td>
+				<td></td>
+				<td></td>
+			{% else %}
+				<td>{{loop.index}}</td>
+				<td>{{rank.user}}</td>
+				<td>{{rank.score}}개</td>
+				<td>{{rank.time}}초</td>
+			{% endif %}
 		</tr>
     	{% endfor %}
 		</tbody>
@@ -39,10 +46,17 @@
 		<tbody>
 		{% for rank in ranksRight %}
 		<tr>
-			<td>{{loop.index + 5}}</td>
-			<td>{{rank.user}}</td>
-			<td>{{rank.score}}개</td>
-			<td>{{rank.time}}초</td>
+			{% if rank.dummy %}
+				<td>{{loop.index + 5}}</td>
+				<td></td>
+				<td></td>
+				<td></td>
+			{% else %}
+				<td>{{loop.index + 5}}</td>
+				<td>{{rank.user}}</td>
+				<td>{{rank.score}}개</td>
+				<td>{{rank.time}}초</td>
+			{% endif %}
 		</tr>
 		{% endfor %}
 		</tbody>
