@@ -52,7 +52,8 @@
 		result.time = 600;
 		confirm('컷!');
 		sessionStorage.setItem('userTime', result.time);
-		socket.emit('finish',result )
+		socket.emit('finish',result);
+		location.href="/rank" ;
 	},10 * 60 * 1000);
 
 	sessionStorage.setItem('correctedCount', 0);
@@ -97,6 +98,7 @@
 					sessionStorage.setItem('userTime', result.time);
 					socket.off('correction');  //소켓이벤트 중복 실행방지. 버튼 이벤트 발생시 해당 이벤트가 계속 추가되어 발생
 					socket.emit('finish', result);
+					location.href="/rank" ;
 				}
 				else{
 					socket.off('correction');  //소켓이벤트 중복 실행방지. 버튼 이벤트 발생시 해당 이벤트가 계속 추가되어 발생
