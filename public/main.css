@@ -76,8 +76,12 @@ wired-input.room {
 }
 #chat-list{
 	margin: 0px auto;
-	height: 500px;
+	height: 670px;
+  /* height: 100%; */
 	width: 90%;
+  border: 4px dashed #bcbcbc;
+  padding: 10px;
+
 }
 #chat-form{
 	width: 90%;
@@ -86,6 +90,29 @@ wired-input.room {
 #chat{
 	width : 70%;
 }
+
+.mine {
+  text-align: right;
+}
+
+.other {
+  text-align: left;
+  color: gray;
+}
+
+.system {
+  color: blue;
+}
+
+#scrollDiv{
+  overflow: auto;
+}
+/* .container_chat {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 200px;
+} */
+
 /************************* 싱글 랭크 css *************************/
 .horizon-left{
 	float: left;
@@ -149,10 +176,17 @@ textarea {
 }
 
 /* 스크롤바 부분 */
+
 .container {
-  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   height: 200px;
 }
+
+/* .container {
+  overflow: auto;
+  height: 200px;
+} */
 .container::-webkit-scrollbar {
   width: 7px;
 }

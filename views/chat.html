@@ -5,8 +5,9 @@
 		<span class="chat-header-left">{{ userName }}</span>
 		<span class="chat-header-right"><a href="/lobby" id="exit-btn">방 나가기</a></span>
 	</div>
-	<wired-card class="container" id="chat-list"> <!--TODO 스크롤 되는지 확인-->
-		{% for chat in chats %}
+	<div class="container" id="chat-list"> <!--TODO 스크롤 되는지 확인-->
+		<div id="scroll">
+			{% for chat in chats %}
 		{% if chat.user === user %}
 			<div class="mine" style="color: {{chat.user}}">
 			<div>{{chat.user}}</div>
@@ -31,7 +32,9 @@
 			</div>
 		{% endif %}
 		{% endfor %}
-	</wired-card>
+		</div>
+		
+	</div>
 	<!----------------- 입력 영역 ----------------->
 	<!-- <div id="chat-form">
 		<wired-input id="chat" name="chat" placeholder="입력해주세요"></wired-input>
@@ -48,6 +51,7 @@
 
 {% block script %}
 <script>
+
 	const socket = io.connect('http://localhost:3000/chat', {
 		path: '/socket.io',
 	});
@@ -61,6 +65,7 @@
 		div.textContent = data.chat;
 		div.appendChild(chat);
 		document.querySelector('#chat-list').appendChild(div);
+		document.getElementById('chat-list').scrollTop = document.getElementById('chat-list').scrollHeight;
 	});
 
 	// 퇴장 문구
@@ -72,6 +77,7 @@
 		div.textContent = data.chat;
 		div.appendChild(chat);
 		document.querySelector('#chat-list').appendChild(div);
+		document.getElementById('chat-list').scrollTop = document.getElementById('chat-list').scrollHeight;
 	});
 
 	// 사용자간 채팅
@@ -85,19 +91,25 @@
 		const name = document.createElement('div');
 		name.textContent = data.user;
 		div.appendChild(name);
+		document.getElementById('chat-list').scrollTop = document.getElementById('chat-list').scrollHeight;
 		if (data.chat) {
 			const chat = document.createElement('div');
 			chat.textContent = data.chat;
 			div.appendChild(chat);
+			document.getElementById('chat-list').scrollTop = document.getElementById('chat-list').scrollHeight;
 		} else {
 			const gif = document.createElement('img');
 			gif.src = '/gif/' + data.gif;
 			div.appendChild(gif);
+			document.getElementById('chat-list').scrollTop = document.getElementById('chat-list').scrollHeight;
 		}
 		div.style.color = data.user;
 		document.querySelector('#chat-list').appendChild(div);
-	});
+		document.getElementById('chat-list').scrollTop = document.getElementById('chat-list').scrollHeight;
 
+
+	});
+	
 	document.querySelector('#chat-form').addEventListener('submit', function (e) {
 		console.log('submit 누름');
 		e.preventDefault();
@@ -114,6 +126,8 @@
 				console.error(err);
 			});
 		}
+		document.getElementById('chat-list').scrollTop = document.getElementById('chat-list').scrollHeight;
 	});
+	
 </script>
 {% endblock %}
