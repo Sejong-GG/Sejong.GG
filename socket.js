@@ -74,37 +74,34 @@ module.exports = (server, app, sessionMiddleware) => {
 
     socket.on('answer', (userAnswer, randomtestIndex) =>
     {
-      if(userAnswer)
-      {
-        userAnswer='amumu';
-        //인덱스에 맞는 이름을 받아오도록 설정 요망.
-        //챔 인덱스 보고 챔 이름을 알수 없어요 ㅠㅠ
-      }
+      console.log(`userAnswer: ${userAnswer}, index: ${randomtestIndex}, 정답: ${champions[randomtestIndex]}`);
+      
+      // FIXME 
+      // if(userAnswer)
+      // {
+      //   userAnswer='amumu';
+      //   //인덱스에 맞는 이름을 받아오도록 설정 요망.
+      //   //챔 인덱스 보고 챔 이름을 알수 없어요 ㅠㅠ
+      // }
       if(champions[randomtestIndex]==userAnswer)//정답이면
       {
-        req.session.count+=1;
-        single.in(singleRoomId).emit
-        ('correction', req.session.count);
+        single.in(singleRoomId).emit('correction', 'right');
         //correction으로 맞춘 문제 갯수 전송
-        //count가 10이어도 클라이언트에서 finish 호출하도록 작성
       }
       else
       {
-        req.session.count=0;
-        single.in(singleRoomId).emit
-        ('correction', 'wrong');
+        single.in(singleRoomId).emit('correction', 'wrong');
         //correction으로 wrong String 전송
-        //클라이언트는 넘어온 값이 wrong이면 클라이언트에서 finish 호출
       }
     })
 
-    socket.on('finish', (score,time)=>
+    socket.on('finish', (data)=>
     {
       //answer은 보낸 문제셋의 이름값과 사용자가 보낸 정답지 배열
       //score은 현재 사용자의 점수
-      
-      Rank.create({user:req.session.userName,
-         score:score, time:time, createAt:new Date()},
+      console.log(`finish이벤트 userName:${req.session.userName}`); //FIXME undefined뜹니다.
+      Rank.create({user:data.userName,
+         score: parseInt(data.score), time:data.time, createAt:new Date()},
          function(err) {
            if(err)
             throw err;

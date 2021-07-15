@@ -40,46 +40,49 @@
 		path: '/socket.io',
 	});
 
-	// 문제 가져옴
-	sessionStorage.setItem('turnCount', 0);
 	sessionStorage.setItem('correctedCount', 0);
+	sessionStorage.setItem('totalCount', 0);
+	let randomIndex;
+
+	// 문제 가져옴
 	socket.emit('make');
 	socket.on('get', function(quizSet) { 
 		let data = quizSet.quizSet1;
+		randomIndex = quizSet.randomtestIndex;
 		const hintcard = document.querySelectorAll('.hint textarea');
 		for(let i=0; i< 4;i++){
 			hintcard[i].innerHTML = data[i].content;
 		}
-		var tc = sessionStorage.getItem('turnCount');
-		sessionStorage.setItem('turnCount', parseInt(tc)+parseInt(1)); //문제1~10
+		let totalCount = sessionStorage.getItem('totalCount');
+		sessionStorage.setItem('totalCount', parseInt(totalCount) + 1);
   	});
 
 	// 확인 버튼
 	function addConfirmEvent(e) {
+		console.log(`확인버튼 누름`);
 		const insertedAnswer = document.querySelector('wired-input').value;
-		console.log('확인버튼 누름');
-
-		socket.emit('answer', insertedAnswer);
+		
+		socket.emit('answer', insertedAnswer, randomIndex);
 		socket.on('correction', function(data) {
-			let tc = sessionStorage.getItem('turnCount');
-			if(tc <= 10) {
-				console.log(`문제 푸는 중..`);
-				if( data === 'right'){
-					cc = sessionStorage.getItem('correctedCount');
-					sessionStorage.setItem('correctedCount', parseInt(cc)+parseInt(1));
-				}
-				alert(`채점 결과: ${data}\n${tc}중 ${sessionStorage.getItem('correctedCount')}맞춤!`);
-				socket.off('correction'); //소켓이벤트 중복 실행방지. 별도로 닫아주지않을 때 발생
-				socket.emit('make');
-				if(tc == 10){
-					alert('10문제 다 풀었다! finish이벤트 실행');
+			let totalCount = sessionStorage.getItem('totalCount');
+			console.log(`채점결과 : ${data}`);
+			if(totalCount <= 10 ){
+				if(data === 'right'){
 					let correctedCount = sessionStorage.getItem('correctedCount');
-					result = {}
-					result.score = correctedCount;
-					result.time = 10;
-					result.
-					socket.off('correction'); //소켓이벤트 중복 실행방지. 별도로 닫아주지않을 때 발생
-					socket.emit('finish', result);
+					sessionStorage.setItem('correctedCount', parseInt(correctedCount) + 1);
+				}
+				alert(`문제 푸는 중\n ${totalCount} 중 ${sessionStorage.getItem('correctedCount')}개 맞았습니다`);
+				if(totalCount == 10){
+					let userName = sessionStorage.getItem('userName');
+					let score = sessionStorage.getItem('correctedCount');
+					let time = 3;
+					alert(`문제 다 풀었다! finish 이벤트 전송합니다`);
+					socket.off('correction');  //소켓이벤트 중복 실행방지. 버튼 이벤트 발생시 해당 이벤트가 계속 추가되어 발생
+					socket.emit('finish', (userName, score, time));
+				}
+				else{
+					socket.off('correction');  //소켓이벤트 중복 실행방지. 버튼 이벤트 발생시 해당 이벤트가 계속 추가되어 발생
+					socket.emit('make');
 				}
 			}
 		})
