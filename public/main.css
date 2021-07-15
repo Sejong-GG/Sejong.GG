@@ -54,7 +54,7 @@ table, table th, table td {
 
 .entire_lobby {
   width: 620px;
-  height: 740px;
+  height: 770px;
   margin: 70px auto;
   padding: 20px;
   display: block;
@@ -87,6 +87,13 @@ table, table th, table td {
   margin-bottom: 0px;
 }
 
+.ranking {
+  float: right;
+}
+
+.menu {
+  margin-top: 10;
+}
 /*****************************************************************/
 
 /************************* room 화면 css *************************/
