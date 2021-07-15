@@ -3,7 +3,7 @@
 
 <wired-card class="entire_single" elevation="5" >
 	<h3>랭크 Top 10</h3>
-	<div id="rank-userName-out">자칭 <span id="rank-userName"></span> 이/가 걸린시간? <span id="rank-userTime"></span></div><br>
+	<div id="rank-userName-out"></div><br>
 	<div class="horizon-left">
 	<table id="left-table" style="width:inherit">
 		<thead>
@@ -53,6 +53,15 @@
 {% endblock %}
 {% block script %}
 <script>
+	let userName = sessionStorage.getItem('userName');
+	if(userName != undefined || userName != null){
+		const rankUserBox = document.getElementById('rank-userName-out');
+		const rankUserName = userName;
+		const rankUserTime = sessionStorage.getItem('userTime');
+		let text = `자칭 <span id="rank-userName">${rankUserName}</span> 이/가 걸린시간? <span id="rank-userTime">${rankUserTime}초</span>`;
+		rankUserBox.innerHTML = text;
+	}
+	
 	btn = document.querySelector('wired-button');
 	btn.addEventListener('click', function(e){
 		location.href = '/';
