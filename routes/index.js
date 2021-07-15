@@ -49,8 +49,23 @@ router.get('/loading', async (req,res,next) => {
 
 // 랭킹
 router.get('/rank', async (req,res,next) => {
-    const ranksLeft = await Rank.find().sort({score:-1}).limit(5);
-    const ranksRight = await Rank.find().sort({score:-1}).skip(5).limit(5);
+    let ranksLeft = await Rank.find().sort({score:-1}).limit(5);
+    let ranksRight = await Rank.find().sort({score:-1}).skip(5).limit(5);
+    const leftSize = ranksLeft.length;
+    const rightSize = ranksRight.length;
+
+    if(leftSize < 5) {
+        for(let i = 0; i < 5 - leftSize; i++) {
+            ranksLeft.push({dummy:true})
+        }
+    }
+
+    if(rightSize < 5) {
+        for(let i = 0; i < 5 - rightSize; i++) {
+            ranksRight.push({dummy:true})
+        }
+    }
+
 	res.render('rank', {ranksLeft, ranksRight})
 })
 

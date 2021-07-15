@@ -5,35 +5,25 @@
 		<span class="chat-header-left">{{ userName }}</span>
 		<span class="chat-header-right"><a href="/" id="exit-btn">방 나가기</a></span>
 	</div>
-	<div class="container" id="chat-list"> <!--TODO 스크롤 되는지 확인-->
+	
+	<div class="container" id="chat-list">
 		<div id="scroll">
-			{% for chat in chats %}
+		{% for chat in chats %}
 		{% if chat.user === user %}
-			<div class="mine" style="color: {{chat.user}}">
 			<div>{{chat.user}}</div>
-			{% if chat.gif %}}
-				<img src="/gif/{{chat.gif}}">
-			{% else %}
-				<div>{{chat.chat}}</div>
-			{% endif %}
+			<div>{{chat.chat}}</div>
 			</div>
 		{% elif chat.user === 'system' %}
 			<div class="system">
 			<div>{{chat.chat}}</div>
 			</div>
 		{% else %}
-			<div class="other" style="color: {{chat.user}}">
 			<div>{{chat.user}}</div>
-			{% if chat.gif %}
-				<img src="/gif/{{chat.gif}}">
-			{% else %}
-				<div>{{chat.chat}}</div>
-			{% endif %}
+			<div>{{chat.chat}}</div>
 			</div>
 		{% endif %}
 		{% endfor %}
 		</div>
-		
 	</div>
 
 	<form action="/data" id="chat-form" method="post" enctype="multipart/form-data">
@@ -100,8 +90,6 @@
 		div.style.color = data.user;
 		document.querySelector('#chat-list').appendChild(div);
 		document.getElementById('chat-list').scrollTop = document.getElementById('chat-list').scrollHeight;
-
-
 	});
 	
 	document.querySelector('#chat-form').addEventListener('submit', function (e) {
