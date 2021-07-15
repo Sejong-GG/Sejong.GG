@@ -49,8 +49,9 @@ router.get('/loading', async (req,res,next) => {
 
 // 랭킹
 router.get('/rank', async (req,res,next) => {
-    const data = await Rank.find().sort({score:-1}).limit(10);
-	res.render('rank', {data})
+    const ranksLeft = await Rank.find().sort({score:-1}).limit(5);
+    const ranksRight = await Rank.find().sort({score:-1}).skip(5).limit(5);
+	res.render('rank', {ranksLeft, ranksRight})
 })
 
 // 채팅
