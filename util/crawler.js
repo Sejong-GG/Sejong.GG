@@ -1,23 +1,8 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const champions = require("./champ");
+const cussWords = require("./word");
 
-const cussWords = ["혜지", "년", "시발", "애미", "새끼", "버러지", "씨발", "럭포터", "엄마", "새낀", "좆", "병신", "고아", "저능아", "씹", "씹창", "강간", "@ㅐ미", "Zl랄", "장애"]
-
-const champions = {
-    "amumu" : "아무무", 
-    "janna" : "잔나", 
-    "katarina" : "카타리나", 
-    "garen" : "가렌", 
-    "lux" : "럭스", 
-    "gnar" : "나르", 
-    "zed" : "제드", 
-    "annie" : "애니", 
-    "monkeyking" : "오공", 
-    "akali" : "아칼리", 
-    "camille" : "카밀", 
-    "drmundo" : "문도", 
-    "kennen" : "케넨"
-};
 let baseUrl = "https://www.op.gg/champion/";
 let backUrl = "/statistics/top/comment";
 let data = [];
@@ -51,9 +36,8 @@ function crawlData(champion, rep) {
     })
 }
 
-for(const [key, value] of Object.entries(champions)) {
-    crawlData(key, value);
-}
-
+champions.forEach((el) => {
+    crawlData(el.eng, el.kor);
+})
 
 module.exports = data;

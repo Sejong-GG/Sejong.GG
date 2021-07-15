@@ -1,6 +1,6 @@
 const express = require('express');
 const session = require('express-session');
-const crawlData = require('../crawl');
+const crawlData = require('../util/crawler');
 const Champion = require('../schemas/champion');
 const Rank = require('../schemas/rank');
 const Chat = require('../schemas/chat');
