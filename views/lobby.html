@@ -2,7 +2,13 @@
 
 {% block content %}
 <wired-card class="entire_lobby" elevation="5" >
-	<h3>게임 메뉴</h3>
+	<div class="ranking">
+		<wired-button onclick="location.href='/rank'" class="ranking" elevation="3">랭킹 확인</wired-button>
+	</div>
+	<br>
+	<div>
+		<h3 class="menu">게임 메뉴</h3>
+	</div>
 	<wired-card elevation="3" id="box">
 		<div id="label">
 			<wired-link elevation="1" href="/single" style="color: white;">싱글 게임 하기</wired-link>
