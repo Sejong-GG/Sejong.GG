@@ -6,6 +6,7 @@ const Rank = require('../schemas/rank');
 const Chat = require('../schemas/chat');
 const router = express.Router();
 
+// 메인
 router.get('/', async (req, res, next) => {
     const userName = req.session.userName;
     if(userName) {
@@ -15,38 +16,48 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.get('/login/:id', (req, res, next) => {
-    req.session.userName = req.params.id;
-    res.redirect('/');
+// 로그인
+router.post('/login', (req, res, next) => {
+    console.log(req.body.userName);
+	try {
+        req.session.userName = req.body.userName;
+	    res.send('ok');
+        //res.redirect('/');
+	} catch (error) {
+	    console.error(error);
+	    next(error);
+	}
 })
 
-router.get('/room', async (req, res, next) => {
-    res.render('room');
-});
-
+// 로비
 router.get('/lobby', async (req,res,next) => {
 	res.render('lobby')
 });
 
+// 싱글 게임
 router.get('/single', async (req,res,next) => {
 	res.render('single');
 });
 
+// 데이터 크롤링
 router.get('/crawl', async (req, res, next) => {
     await Champion.deleteMany({});
     await Champion.create(crawlData);
     res.redirect('/');
 });
 
+// 로딩
+router.get('/loading', async (req,res,next) => {
+	res.render('loading')
+})
+
+// 랭킹
 router.get('/rank', async (req,res,next) => {
     const data = await Rank.find().sort({score:-1}).limit(10);
 	res.render('rank', {data})
 })
 
-router.get('/loading', async (req,res,next) => {
-	res.render('loading')
-})
-
+// 공개 채팅방
 router.get('/chat', async (req,res,next) => {
     const userName = req.session.userName;
 	res.render('chat', {userName : userName})
@@ -59,25 +70,13 @@ router.post('/chat/data', async (req, res, next) => {
 		user: req.session.userName,
 		chat: req.body.chat,
 	  });
-	  req.app.get('io').of('/chat').to("open").emit('chat', chat);
-	  console.log('/chat 요청 보냄');
-	  res.send('ok');
+	    req.app.get('io').of('/chat').to("open").emit('chat', chat);
+	    console.log('/chat 요청 보냄');
+	    res.send('ok');
 	} catch (error) {
-	  console.error(error);
-	  next(error);
+	    console.error(error);
+	    next(error);
 	}
-  });
-
-router.get('/test', async (req,res,next) => {
-    await Rank.deleteMany({});
-
-    for(var i = 0; i < 40; i++) {
-        await Rank.create({
-            user: "유저",
-            score: i,
-            time: "10",
-        });
-    }
 });
 
 module.exports = router;
