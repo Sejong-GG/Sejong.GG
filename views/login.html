@@ -23,34 +23,42 @@
     let user;
 
     const place = ['거창', '고령', '대구', '함양', '평양', '울산', '부산', '통영', '거제', '북한', '영국', '독일', '체코', '스웨덴', '포르투갈', '파키스탄', '미얀마', '요르단', '세네갈', '칠레', '브라질', '콜롬비아', '쿠바', '멕시코'];
-
     const adj = ['섹시', '큐티', '나이스', '못생긴', '역겨운', '아름다운', '착한', '더러운', '외향적인', '내향적인', '수줍은', '재밌는', '똑똑한', '맛있는', '돈없는', '돈많은', '맛없는', '재미없는', '어줍짢은', '안타까운'];
-
     const who = ['할머니', '할아버지', '말티즈', '바퀴벌레', '무당벌레', '모기', '초파리', '할미꽃', '해바라기', '군인', '한라봉', '살인마', '산타클로스', '숟가락', '딸기팬티', '응가', '오줌싸개', '방귀대장', '바바리맨', '스타킹'];
 
     button.addEventListener("click", () => {
-    if(button.innerText==="선택") {
-        user = makeRandomName(place,adj,who);
-        yourName.innerText = user;
-        button.innerText="수정";
-    } else if(button.innerText==="수정"){
-        button.innerText="입장";
-        change.classList.remove("hidden");
-    } else if(button.innerText==="입장"){
-		sessionStorage.setItem('userName', user);
-        window.location.href = 'http://localhost:3000/login/' + user;
-    }
-    
-    function makeRandomName (place, adj, who) { 
-        const chosedLoaction = place[Math.floor(Math.random() * place.length)];
-        const chosedAdjective = adj[Math.floor(Math.random() * adj.length)];
-        const chosedWho = who[Math.floor(Math.random() * who.length)];
-
-        const userName = [chosedLoaction, chosedAdjective, chosedWho].join(' '); 
-
-        return userName;
-    
-    }
+        if(button.innerText==="선택") {
+            user = makeRandomName(place,adj,who);
+            yourName.innerText = user;
+            button.innerText="수정";
+        } else if(button.innerText==="수정"){
+            button.innerText="입장";
+            change.classList.remove("hidden");
+        } else if(button.innerText==="입장"){
+			sessionStorage.setItem('userName', user);
+            axios.post('/login', {
+                userName: user,
+            })
+            .then(() => {
+                window.location.reload();
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+        }
+        
+        function makeRandomName (place, adj, who) { 
+            const chosedLoaction = place[Math.floor(Math.random() * place.length)];
+            const chosedAdjective = adj[Math.floor(Math.random() * adj.length)];
+            const chosedWho = who[Math.floor(Math.random() * who.length)];
+            const userName = [chosedLoaction, chosedAdjective, chosedWho].join(' '); 
+            return userName;
+        }
     });
-    </script>
+    window.onload = () => {
+        if (new URL(location.href).searchParams.get('error')) {
+            alert(new URL(location.href).searchParams.get('error'));
+        }
+    };
+</script>
 {% endblock %}
