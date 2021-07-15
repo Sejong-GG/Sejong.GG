@@ -49,8 +49,9 @@
 		let result = {};
 		result.userName = sessionStorage.getItem('userName');
 		result.score = parseInt(sessionStorage.getItem('correctedCount'));
-		result.time = 3;
+		result.time = 600;
 		confirm('컷!');
+		sessionStorage.setItem('timeout', result.time);
 		socket.emit('finish',result )
 	},10 * 60 * 1000);
 
@@ -93,8 +94,7 @@
 					result.userName = sessionStorage.getItem('userName');
 					result.score = parseInt(sessionStorage.getItem('correctedCount'));
 					result.time = (endTimePoint.getTime() - startTimePoint.getTime())/1000; // 초 단위
-
-					alert(`문제 다 풀었다! finish 이벤트 전송합니다`);
+					sessionStorage.setItem('timeout', result.time);
 					socket.off('correction');  //소켓이벤트 중복 실행방지. 버튼 이벤트 발생시 해당 이벤트가 계속 추가되어 발생
 					socket.emit('finish', result);
 				}
