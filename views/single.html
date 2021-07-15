@@ -14,8 +14,8 @@
 
     <div class="who">
         <wired-card class="second_line" elevation="5"><span>누구일까요?</span></wired-card>
-        <wired-button elevation="3">확인</wired-button>
-        <wired-input type="text" name="title" placeholder="챔피언 입력"> 
+        <wired-button class="check" onclick="clearInput()" elevation="3">확인</wired-button>
+        <wired-input class="input-text" type="text" name="title" placeholder="챔피언 입력"> 
     </div>
 
     <div class="exit">
@@ -106,10 +106,15 @@
 				}
 			}
 		})
+        document.querySelector('wired-input').innerText = "안녕"
 	}
 
 	const btn = document.querySelector('wired-button');
+    const champ = document.querySelector("wired-input");
 	btn.addEventListener('click', addConfirmEvent);	
+    btn.addEventListener('click', () => {
+        champ.innerText="안녕";
+    });
 
     const button = document.getElementById("lobby");
     const dialog = document.querySelector("wired-dialog");
@@ -123,5 +128,13 @@
     leave.addEventListener("click" , () => {
         dialog.classList.add("hidden");
     });
+
+    function clearInput(){
+        var el = document.getElementsByClassName('input-text');
+        for(var i=0; i<el.length; i++){
+        el[i].value = '';
+        }
+    }
+
 </script>
 {% endblock %}
