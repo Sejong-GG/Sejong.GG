@@ -1,10 +1,29 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-<wired-card class="entire" elevation="5" >
-	<h3>게임방 목록</h3>
-  	<wired-link href="/single">싱글 모드 하기</wired-link>
-  	<wired-link href="/chat">채팅방 입장</wired-link><br><br>
+<wired-card class="entire_lobby" elevation="5" >
+	<h3>게임 메뉴</h3>
+	<wired-card elevation="3" id="box">
+		<div id="label">
+			<wired-link elevation="1" href="/single" style="color: white;">싱글 게임 하기</wired-link>
+			<ul class="explain">
+				<li>롤 챔피언에 대해 얼마나 알고 계신가요?</li>
+				<li>챔피언의 특징을 찾아 문제를 맞춰보세요!</li>
+			</ul>
+		</div>
+	</wired-card>
+
+	<wired-card elevation="3" id="box">
+		<div id="label">
+			<wired-link elevation="1" href="/chat" style="color: white;">채팅방 입장</wired-link>
+			<ul class="explain">
+				<li>롤 얘기를 할 수 있는 친구가 필요하다면?</li>
+				<li>채팅방에서 다른 유저들과 문제를 공유해보세요!</li>
+			</ul>
+		</div>
+	</wired-card>
+  	
+  	
   	<div class="error-message">{{error}}</div>
   
 </wired-card>

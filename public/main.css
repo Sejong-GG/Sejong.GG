@@ -49,6 +49,46 @@ table, table th, table td {
 	border-collapse: collapse;
     margin : auto;
 }
+
+/************************* 로비 화면 css *************************/
+
+.entire_lobby {
+  width: 620px;
+  height: 740px;
+  margin: 70px auto;
+  padding: 20px;
+  display: block;
+  text-align: center;
+}
+
+#box {
+  height: 200px;
+  width: 550px;
+  border: 0px solid black;
+  position: relative;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  padding-bottom: 0px;
+}
+
+#label {
+  position: absolute;
+  top: -40px;
+  left: 40px;
+  height: 60px;
+  width: 150px;
+  background-color: gray;
+  border: 3px solid black;
+  text-align: center;
+}
+
+.explain {
+  width: 480px;
+  margin-bottom: 0px;
+}
+
+/*****************************************************************/
+
 /************************* room 화면 css *************************/
 wired-input.room {
 	width: 70%;
