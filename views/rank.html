@@ -15,7 +15,14 @@
 		</tr>
 		</thead>
 		<tbody>
-
+		{% for rank in ranksLeft %}
+		<tr>
+			<td>{{loop.index}}</td>
+			<td>{{rank.user}}</td>
+			<td>{{rank.score}}개</td>
+			<td>{{rank.time}}초</td>
+		</tr>
+    	{% endfor %}
 		</tbody>
 	</table>
 	</div>
@@ -30,7 +37,14 @@
 		</tr>
 		</thead>
 		<tbody>
-
+		{% for rank in ranksRight %}
+		<tr>
+			<td>{{loop.index + 5}}</td>
+			<td>{{rank.user}}</td>
+			<td>{{rank.score}}개</td>
+			<td>{{rank.time}}초</td>
+		</tr>
+		{% endfor %}
 		</tbody>
 	</table>
 	</div>
@@ -39,37 +53,6 @@
 {% endblock %}
 {% block script %}
 <script>
-	const el = tag => document.createElement(tag);
-	let leftTableBody = document.querySelector('#left-table');
-	let rightTableBody = document.querySelector('#right-table');
-	let rankUserName = document.querySelector('#rank-userName');
-	let rankUserTime = document.querySelector('#rank-userTime');
-	rankUserName.innerHTML= sessionStorage.getItem('userName');
-	rankUserTime.innerHTML= sessionStorage.getItem('userTime')+'초';
-	
-	function drawTable(tbody, start, end){
-		for(let i = start; i<end; i++){
-			let tr = el('tr');
-			let td1 = el('td');
-			let td2 = el('td');
-			let td3 = el('td');
-			let td4 = el('td');
-			
-			td1.innerHTML = `<span>${i+1}</span>`;
-			td2.innerHTML = `<span>포르투갈 어줍짢은 오줌싸개</span>`;
-			td3.innerHTML = `<span>${10-i}개</span>`;
-			td4.innerHTML = `<span>${i+1}초</span>`;
-			tr.appendChild(td1);
-			tr.appendChild(td2);
-			tr.appendChild(td3);
-			tr.appendChild(td4);
-			tbody.appendChild(tr);
-		}
-	}
-
-	drawTable(leftTableBody, 0, 5);
-	drawTable(rightTableBody, 5, 10);
-
 	btn = document.querySelector('wired-button');
 	btn.addEventListener('click', function(e){
 		location.href = '/';
