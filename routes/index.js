@@ -28,8 +28,9 @@ router.post('/login', (req, res, next) => {
 
 // 싱글 게임
 router.get('/single', async (req,res,next) => {
+    const serverip = process.env.SERVER_IP;
     if(req.session.userName) {
-	    res.render('single');
+	    res.render('single', {serverip : serverip});
     } else {
         res.render('login');
     }
@@ -49,8 +50,8 @@ router.get('/loading', async (req,res,next) => {
 
 // 랭킹
 router.get('/rank', async (req,res,next) => {
-    let ranksLeft = await Rank.find().sort({score:-1}).limit(5);
-    let ranksRight = await Rank.find().sort({score:-1}).skip(5).limit(5);
+    let ranksLeft = await Rank.find().sort({score:-1, time:1}).limit(5);
+    let ranksRight = await Rank.find().sort({score:-1, time:1}).skip(5).limit(5);
     const leftSize = ranksLeft.length;
     const rightSize = ranksRight.length;
 
@@ -72,8 +73,9 @@ router.get('/rank', async (req,res,next) => {
 // 채팅
 router.get('/chat', async (req,res,next) => {
     const userName = req.session.userName;
+    const serverip = process.env.SERVER_IP;
     if(userName) {
-        res.render('chat', {userName : userName})
+        res.render('chat', {userName : userName, serverip : serverip})
     } else {
         res.render('login')
     }
