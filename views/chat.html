@@ -36,7 +36,7 @@
 
 {% block script %}
 <script>
-	const socket = io.connect('http://{{serverip}}/chat', {
+	const socket = io.connect('https://{{serverip}}/chat', {
 		path: '/socket.io',
 	});
 
