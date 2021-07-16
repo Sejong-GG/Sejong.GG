@@ -10,10 +10,10 @@ const chatSchema = new Schema({
   	score: {
     	type: Number,
     	required: true,
-    	//max: 10,
+    	max: 10,
   	},
   	time:{
-    	type: String,
+    	type: Number,
   	},
   	createdAt: {
     	type: Date,
