@@ -200,8 +200,9 @@ wired-input.room {
 }
 
 .who {
-  height: 200px;
+  height: 100px;
   padding: 0;
+  margin-top: 0px;
 }
 
 .first_line {
@@ -212,13 +213,15 @@ wired-input.room {
   background-color: white;
   border: 4px dashed #bcbcbc;
   color: black;
+  margin: 0px;
 }
 
 .second_line {
   width: 250px;
   height: 40px;
   display: inline-block;
-  margin-top: 120px;
+  margin-top: 0px;
+  margin-bottom: 0px;
   margin-right: 100px;
 }
 
@@ -256,7 +259,7 @@ textarea {
 }
 
 .exit {
-  margin-top: 40px;
+  margin-top: 10px;
 }
 
 #appear 
