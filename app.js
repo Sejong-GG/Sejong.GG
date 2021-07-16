@@ -7,7 +7,7 @@ const nunjucks = require('nunjucks');
 const ColorHash = require('color-hash');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const domains = ['http://localhost:3000'];
+const domains = ['https://lol-quiz.herokuapp.com'];
 
 dotenv.config();
 const webSocket = require('./socket');
