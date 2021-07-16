@@ -1,7 +1,8 @@
 {% extends 'layout.html' %}
 {% block content %}
 <wired-card class="entire_single" elevation="5" >
-    <h3 class="alone">싱글 게임</h3>
+    <h3 class="alone">싱글 게임</h3><br>
+	맞춘 개수: <span id='game-status'></span>
     <div class="hint">
         <textarea class="first_line container" disabled elevation="5"></textarea>
         <textarea class="first_line container" disabled elevation="5"></textarea>
@@ -42,6 +43,8 @@
 	sessionStorage.setItem('correctedCount', 0);
 	sessionStorage.setItem('totalCount', 0);
 	let randomIndex;
+	let gameStatus = document.querySelector('#game-status');
+	gameStatus.innerHTML = sessionStorage.getItem('correctedCount');
 
 	// 응시 시간 측정
 	let startTimePoint = new Date();
@@ -87,7 +90,8 @@
 					let correctedCount = sessionStorage.getItem('correctedCount');
 					sessionStorage.setItem('correctedCount', parseInt(correctedCount) + 1);
 				}
-				alert(`문제 푸는 중\n ${totalCount} 중 ${sessionStorage.getItem('correctedCount')}개 맞았습니다`);
+				gameStatus.innerHTML = sessionStorage.getItem('correctedCount');
+				
 				if(totalCount == 10){
 					clearTimeout(timeout);
 					endTimePoint = new Date();

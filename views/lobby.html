@@ -36,10 +36,6 @@
 {% endblock %}
 {% block script %}
 <script>
-	const socket = io.connect('/room', { // 네임스페이스
-		path: '/socket.io',
-	});
-	
   	const button = document.querySelectorAll(".join-btn");
 	  
 	function addBtnEvent(e) { // 방 입장 클릭 시
