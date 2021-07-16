@@ -37,7 +37,7 @@
 {% block script %}
 <script>
 	console.log(sessionStorage.getItem('userName'));
-	const socket = io.connect('http://{{serverip}}/single', {
+	const socket = io.connect('https://{{serverip}}/single', {
 		path: '/socket.io',
 	});
 	sessionStorage.setItem('correctedCount', 0);
