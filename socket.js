@@ -19,6 +19,8 @@ module.exports = (server, app, sessionMiddleware) => {
 		const req = socket.request;
 		const roomId = 'open'
 		socket.join(roomId);
+		chatterIn();
+
 		socket.to(roomId).emit('join', {
 			user: 'system',
 			chat: `${req.session.userName}님이 입장하셨습니다.`,
@@ -27,11 +29,25 @@ module.exports = (server, app, sessionMiddleware) => {
 		socket.on('disconnect', () => {
 			console.log('chat 네임스페이스 접속 해제');
 			socket.leave(roomId);
+			chatterOut();
 			socket.to(roomId).emit('exit', {
 				user: 'system',
 				chat: `${req.session.userName}님이 퇴장하셨습니다.`,
 			});
-		});	
+		});
+
+		function chatterIn(){
+			const count = chat.adapter.rooms[roomId].length;
+			console.log(`참여자 입장(인원: ${count}명)`);
+			socket.to(roomId).emit('change-totalChatters', count);
+		}
+
+		function chatterOut(){
+			const target = chat.adapter.rooms[roomId];				// join한 client가 0명이면 undefined됨
+			const count = (target === undefined)? 0 : target.length;
+			console.log(`참여자 퇴장(인원: ${count}명)`);
+			socket.to(roomId).emit('change-totalChatters', count);
+		}
 	});
   
   	single.on('connection', (socket) => {
