@@ -22,40 +22,46 @@ module.exports = (server, app, sessionMiddleware) => {
 		socket.join(roomId);
 		chatterIn();
 
-		socket.to(roomId).emit('join', {
-			user: 'system',
-			chat: `${req.session.userName}님이 입장하셨습니다.`,
-		});
-
 		socket.on('disconnect', () => {
 			console.log('chat 네임스페이스 접속 해제');
 			socket.leave(roomId);
 			chatterOut();
-			socket.to(roomId).emit('exit', {
-				user: 'system',
-				chat: `${req.session.userName}님이 퇴장하셨습니다.`,
-			});
 		});
 
 		function chatterIn(){
 			const index = members.indexOf(req.sessionID);
 			if ( index === -1) {
-				members.push(req.sessionID);
+				members.push(req.sessionID); // 추가
+				const count = members.length;
+				console.log(`참여자 입장(인원: ${count}명)`);
+
+				socket.to(roomId).emit('change-totalChatters', count);
+				socket.to(roomId).emit('join', {
+					user: 'system',
+					chat: `${req.session.userName}님이 입장하셨습니다.`,
+				});
 			}
-			const count = members.length;
-			console.log(`참여자 입장(인원: ${count}명)`);
-			socket.to(roomId).emit('change-totalChatters', count);
 		}
 
 		function chatterOut(){
 			const index = members.indexOf(req.sessionID);
 			if (index > -1) {
-				members.splice(index, 1);
+				members.splice(index, 1); // 삭제
+				const count = members.length;
+				console.log(`참여자 퇴장(인원: ${count}명)`);
+
+				socket.to(roomId).emit('change-totalChatters', count);
+				socket.to(roomId).emit('exit', {
+					user: 'system',
+					chat: `${req.session.userName}님이 퇴장하셨습니다.`,
+				});
 			}
-			const count = members.length;
-			console.log(`참여자 퇴장(인원: ${count}명)`);
-			socket.to(roomId).emit('change-totalChatters', count);
 		}
+
+		socket.on('get-totalChatters', () => {
+			console.log('------get 참여자')
+			chat.to(roomId).emit('change-totalChatters', members.length);
+		})
 	});
   
   	single.on('connection', (socket) => {

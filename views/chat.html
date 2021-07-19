@@ -40,7 +40,8 @@
 		path: '/socket.io',
 	});
 	let chattersStatus = document.querySelector('#chatters-status');
-	
+	socket.emit('get-totalChatters');
+
 	// 입장 문구
 	socket.on('join', function (data) {
 		console.log(data);
