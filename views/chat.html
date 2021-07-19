@@ -3,7 +3,7 @@
 <wired-card elevation="5" class="entire_single">
 	<div class="chat-head">
 		<span class="chat-header-left">{{ userName }}</span>
-		<span class="chat-header-right"><a href="/" id="exit-btn">방 나가기</a></span>
+		<span class="chat-header-right"><span id="chatters-status"></span><a href="/" id="exit-btn">방 나가기</a></span>
 	</div>
 	
 	<div class="container" id="chat-list">
@@ -31,7 +31,7 @@
 		<button type="submit">전송</button>
 	</form>
 </wired-card>
-  
+
 {% endblock %}
 
 {% block script %}
@@ -39,7 +39,8 @@
 	const socket = io.connect('https://{{serverip}}/chat', {
 		path: '/socket.io',
 	});
-
+	let chattersStatus = document.querySelector('#chatters-status');
+	
 	// 입장 문구
 	socket.on('join', function (data) {
 		console.log(data);
@@ -51,6 +52,10 @@
 		document.querySelector('#chat-list').appendChild(div);
 		document.getElementById('chat-list').scrollTop = document.getElementById('chat-list').scrollHeight;
 	});
+
+	socket.on('change-totalChatters', function(data) {
+		chattersStatus.innerHTML = `${data}명 접속 중`
+	})
 
 	// 퇴장 문구
 	socket.on('exit', function (data) {

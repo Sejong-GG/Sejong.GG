@@ -14,6 +14,7 @@ module.exports = (server, app, sessionMiddleware) => {
 		sessionMiddleware(socket.request, socket.request.res, next);
 	});
 
+	let members = [];
 	chat.on('connection', (socket) => {
 		console.log('chat 네임스페이스에 접속');
 		const req = socket.request;
@@ -37,14 +38,21 @@ module.exports = (server, app, sessionMiddleware) => {
 		});
 
 		function chatterIn(){
-			const count = chat.adapter.rooms[roomId].length;
+			const index = members.indexOf(req.sessionID);
+			if ( index === -1) {
+				members.push(req.sessionID);
+			}
+			const count = members.length;
 			console.log(`참여자 입장(인원: ${count}명)`);
 			socket.to(roomId).emit('change-totalChatters', count);
 		}
 
 		function chatterOut(){
-			const target = chat.adapter.rooms[roomId];				// join한 client가 0명이면 undefined됨
-			const count = (target === undefined)? 0 : target.length;
+			const index = members.indexOf(req.sessionID);
+			if (index > -1) {
+				members.splice(index, 1);
+			}
+			const count = members.length;
 			console.log(`참여자 퇴장(인원: ${count}명)`);
 			socket.to(roomId).emit('change-totalChatters', count);
 		}
