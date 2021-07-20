@@ -58,6 +58,13 @@
 		chattersStatus.innerHTML = `${data}명 접속 중`
 	})
 
+	socket.on('force-disconnect', function(disconnectSocket) {
+		if(socket.id === disconnectSocket){
+			socket.disconnect('io client disconnect');
+			location.href="/";
+		}
+	})
+
 	// 퇴장 문구
 	socket.on('exit', function (data) {
 		console.log(data);
@@ -72,6 +79,7 @@
 
 	// 사용자간 채팅
 	socket.on('chat', function (data) {
+		
 		const div = document.createElement('div');
 		if (data.user === '{{userName}}') {
 			div.classList.add('mine');
