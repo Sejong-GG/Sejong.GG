@@ -14,24 +14,67 @@ module.exports = (server, app, sessionMiddleware) => {
 		sessionMiddleware(socket.request, socket.request.res, next);
 	});
 
+	let members = new Map();
 	chat.on('connection', (socket) => {
 		console.log('chat 네임스페이스에 접속');
 		const req = socket.request;
 		const roomId = 'open'
 		socket.join(roomId);
-		socket.to(roomId).emit('join', {
-			user: 'system',
-			chat: `${req.session.userName}님이 입장하셨습니다.`,
-		});
+		chatterIn();
 
-		socket.on('disconnect', () => {
+		socket.on('get-totalChatters', () => {
+			chat.to(roomId).emit('change-totalChatters', members.size);
+		})
+
+		socket.on('disconnect', (data) => {
 			console.log('chat 네임스페이스 접속 해제');
 			socket.leave(roomId);
-			socket.to(roomId).emit('exit', {
+			console.log(`연결종료 reason: ${data}`)
+			
+			if(data === 'client namespace disconnect'){ // 중복 탭 생성시 기존 탭 종료
+				chatterOut(true);
+			}
+		});
+
+		function chatterIn(){
+			if(members.has(req.sessionID)){ // 기존 소켓은 연결 종료
+				let disconnectSocket = members.get(req.sessionID);
+				console.log(`--- 기존 소켓 연결 종료:${disconnectSocket} ---`);
+				chat.to(roomId).emit('force-disconnect', disconnectSocket);
+			}
+			members.set(req.sessionID, socket.id);
+			const count = members.size;
+			console.log(`참여자 입장(인원: ${count}명)`);
+
+			socket.to(roomId).emit('change-totalChatters', count);
+			socket.to(roomId).emit('join', {
 				user: 'system',
-				chat: `${req.session.userName}님이 퇴장하셨습니다.`,
+				chat: `${req.session.userName}님이 입장하셨습니다.`,
 			});
-		});	
+			console.log(`--추가--`);
+			for (let [key, value] of members){
+				console.log(`${key} : ${value}`);
+			}console.log(`-------`);
+		}
+
+		function chatterOut(forceable=false){
+			if(forceable === false){ // 같은 닉네임으로 새 탭 열었을 때 접속자 수 변동 없음
+				members.delete(req.sessionID);
+				const count = members.size;
+				console.log(`참여자 퇴장(인원: ${count}명)`);
+				socket.to(roomId).emit('change-totalChatters', count);
+			}
+			if (members.has(req.sessionID)) {
+				socket.to(roomId).emit('exit', {
+					user: 'system',
+					chat: `${req.session.userName}님이 퇴장하셨습니다.`,
+				});
+				console.log(`--삭제--`);
+				for (let [key, value] of members){
+					console.log(`${key} : ${value}`);
+				}console.log(`-------`);
+			}
+		}
 	});
   
   	single.on('connection', (socket) => {

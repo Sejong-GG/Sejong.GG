@@ -277,7 +277,10 @@ textarea {
     opacity: 1;
   }
 }
-
+#chatters-status {
+	color: gray;
+	margin-right: 30px;
+}
 
 /*****************************************************************/
 
